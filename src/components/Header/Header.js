@@ -3,9 +3,9 @@ import { HiMiniShoppingCart } from "react-icons/hi2";
 
 export default function Header() {
     return (
-        <header className="sticky top-0 w-full z-10 border-primary border-b-2">
+        <header className="sticky top-0 w-full z-10 shadow-lg">
             <nav className="bg-white px-10 py-3 flex flex-row items-center">
-                <a href="/" className="text-primary text-3xl basis-1/4 font-bold">Pharmacy</a>
+                <a href="/" className="text-primary text-3xl basis-1/4 font-bold">Empalic</a>
                 <div className="basis-1/2 text-xl ">
                     <ul className="flex flex-row">
                         <li className="mx-5">
@@ -15,7 +15,7 @@ export default function Header() {
                             <a href="/service" className="text-black hover:text-primary">Dịch vụ</a>
                         </li>
                         <li  className="mx-5">
-                            <a href="/products" className="text-black hover:text-primary">Sản phẩm</a>
+                            <a href="/product" className="text-black hover:text-primary">Sản phẩm</a>
                         </li>
                         <li  className="mx-5">
                             <a href="/contact" className="text-black hover:text-primary">Liên hệ</a>

@@ -64,9 +64,9 @@ export default function Home() {
             </section>
 
             <section className=' flex flex-col my-20 justify-center px-40'>
-                <div className='mt-5 text-5xl text-center flex m-auto flex-wrap'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Pharmacy</div></div>
+                <div className='mt-5 text-5xl text-center flex m-auto flex-wrap'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Empalic</div></div>
                 <br />
-                <div className='text-xl text-center'>Pharmacy chính là nơi bạn có thể nắm rõ tình hình sức khoẻ của mình ở hiện tại và trong tương lai, từ đó có các phương án quản lý và nâng cao sức khoẻ ngay từ khi còn khoẻ mạnh.</div>
+                <div className='text-xl text-center'>Empalic chính là nơi bạn có thể nắm rõ tình hình sức khoẻ của mình ở hiện tại và trong tương lai, từ đó có các phương án quản lý và nâng cao sức khoẻ ngay từ khi còn khoẻ mạnh.</div>
                 <div className='flex justify-center'>
                     <a href='/about'>
                         <button className='bg-whte text-primary border-primary border mt-10 rounded-3xl p-3 w-40 text-center hover:bg-primary hover:text-white transition duration-500 text-xl'>Tìm hiểu thêm</button>
@@ -96,7 +96,7 @@ export default function Home() {
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
                         <a href="#">
-                            <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGhvc3BpdGFsfGVufDB8fDB8fHww" />
+                            <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1463367620918-d4824d05ce0e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ymxvb2QlMjBzdWdhcnxlbnwwfHwwfHx8MA%3D%3D" />
                         </a>
 
                         <header className="flex  p-2 md:p-4">
@@ -110,20 +110,20 @@ export default function Home() {
 
                         </footer>
                     </article>
-
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
                         <a href="#">
-                            <img alt="..." class="block h-auto w-full" src="https://plus.unsplash.com/premium_photo-1675686363460-25aa1039e94b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8aG9zcGl0YWx8ZW58MHx8MHx8fDA%3D" />
+                            <img alt="..." class="block h-auto w-full" src="https://plus.unsplash.com/premium_photo-1673958771843-12c73b278bd0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnVyc2V8ZW58MHx8MHx8fDA%3D" />
                         </a>
 
                         <header className="flex  p-2 md:p-4">
                             <h1 className="text-2xl text-primary ">
-                                Dịch vụ kiểm tra đo lượng huyết áp
+                                Dịch vụ đo huyết áp tại nhà
                             </h1>
                         </header>
 
                         <footer className="flex  p-2 md:p-4">
-                            Dịch vụ đo lường huyết áp tại nhà cho người già giúp thuận tiện việc di chuyển và đo lường kiểm tra tránh các bệnh huyết áp.
+                            Kiểm soát huyết áp giúp phòng tránh các nguy cơ tai biến do huyết áp gây ra đối với sức khỏe như tai biến mạch máu não, đột quỵ,...
+
                         </footer>
                     </article>
 
@@ -200,7 +200,7 @@ export default function Home() {
 
             <section className='my-24 bg-gray-100 py-10'>
                 <div className='text-center text-5xl font-bold text-primary mb-10'>Đặt lịch ngay</div>
-                <div className='text-center text-xl mb-5'>Đăng ký và đặt lịch lần đầu để nhận được những ưu đãi cho bạn và gia đình</div>
+                <div className='text-center text-xl mb-5'>Đăng ký và đặt dịch vụ của chúng tôi lần đầu để nhận được những ưu đãi cho bạn và gia đình</div>
                 <div className='text-center'>
                     <a href='/contact'>
                         <button className='text-center bg-primary text-white px-5 py-3 rounded-full'>
