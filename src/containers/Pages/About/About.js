@@ -1,9 +1,9 @@
 import React from 'react'
-import medicineIcon from '../../../assets/about/medicine-icon.png'
-import doctorIcon from '../../../assets/about/doctor-icon.png'
-import friendlyIcon from '../../../assets/about/friendly-icon.png'
-import hospitalIcon from '../../../assets/about/hospital-icon.png'
-import medicine from '../../../assets/about/medicine.png'
+import medicineIcon from '../../../assets/About/medicine-icon.png'
+import doctorIcon from '../../../assets/About/doctor-icon.png'
+import friendlyIcon from '../../../assets/About/friendly-icon.png'
+import hospitalIcon from '../../../assets/About/hospital-icon.png'
+import medicine from '../../../assets/About/medicine.png'
 
 export default function About() {
     return (
