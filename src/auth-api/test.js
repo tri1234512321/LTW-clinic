@@ -11,7 +11,7 @@ async function requestData() {
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // login
-if (!jwtClient.stillHasTokenAfter(7200)) { // if token is not valid after 7200 seconds, redirect to login page
+if ( ! await jwtClient.stillHasTokenAfter(7200)) { // if token is not valid after 7200 seconds, redirect to login page
     // redirect to login page
     // because this is example, we will login here
     if (await jwtClient.login("dr_john", "hashed_password")) {

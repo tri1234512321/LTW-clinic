@@ -2,20 +2,22 @@
 
 
 export class JWTClient {
-    static SESSION_CREATED_AT =  '__jwtc__iat';
-    static SESSION_DURATION =  '__jwtc__duration';
+    //static SESSION_CREATED_AT =  '__jwtc__iat';
+    //static SESSION_DURATION =  '__jwtc__duration';
 
     #origin;
     #loginPath;
     #logoutPath;
     #refreshPath;
+    #checkDurationPath;
     #accessToken;
 
-    constructor(origin, loginPath, refreshPath, logoutPath) {
+    constructor(origin, loginPath, refreshPath, logoutPath, checkDurationPath) {
         this.#origin = origin;
         this.#loginPath = loginPath;
         this.#refreshPath = refreshPath;
         this.#logoutPath = logoutPath;
+        this.#checkDurationPath = checkDurationPath;
         this.#accessToken = null;
     }
 
@@ -37,8 +39,8 @@ export class JWTClient {
                 if (data.authorized) {
                     success = true;
                     this.#accessToken = data.accessToken;
-                    this.setCookie(this.createdAtKey(), Date.now(), {expires: new Date(data.hardDuration * 1000 + Date.now())});
-                    this.setCookie(this.durationKey(), data.hardDuration * 1000, {expires: new Date(data.hardDuration * 1000 + Date.now())});
+                    //this.setCookie(this.createdAtKey(), Date.now(), {expires: new Date(data.hardDuration * 1000 + Date.now())});
+                    //this.setCookie(this.durationKey(), data.hardDuration * 1000, {expires: new Date(data.hardDuration * 1000 + Date.now())});
                 }
             })
             .catch(err => {
@@ -58,8 +60,6 @@ export class JWTClient {
             .then(success => success ? console.log("LOGOUT SUCCESSFUL...") : console.log("LOGOUT FAILED..."))
 
         this.#accessToken = null;
-        this.setCookie(this.createdAtKey(), "", {expires: new Date(0)});
-        this.setCookie(this.durationKey(), "", {expires: new Date(0)});
     }
 
     async refreshAccessToken()  {
@@ -117,7 +117,7 @@ export class JWTClient {
         return this.fetch(url, options).then(response => response.json());
     }
 
-    stillHasTokenAfter(seconds) {
+    /*stillHasTokenAfter(seconds) {
         let createdAt = parseInt(this.getCookie(this.createdAtKey()));
         let duration = parseInt(this.getCookie(this.durationKey()));
 
@@ -128,6 +128,28 @@ export class JWTClient {
             return (createdAt + duration) > (Date.now() + seconds*1000);
         }
         return false;
+    }*/
+
+    async stillHasTokenAfter(seconds) {
+        let url = this.#origin + this.#checkDurationPath;
+
+        const validDuration = await fetch(url, {
+            method: 'GET',
+            credentials: 'include'
+        })
+            .then(response => response.json())
+            .then(data => {
+                return data.validDuration;
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally();
+
+        console.log("Checking local token// CURRENT VALID DURATION: " + validDuration +
+            " seconds; AFTER: " + seconds + " seconds, REMAINING: " + (validDuration - seconds));
+
+        return validDuration > seconds;
     }
 
 
@@ -169,13 +191,13 @@ export class JWTClient {
         document.cookie = cookieString;
     }
 
-    createdAtKey() {
+    /*createdAtKey() {
         return JWTClient.SESSION_CREATED_AT + "_" + this.#origin;
-    }
+    }*/
 
-    durationKey() {
+    /*durationKey() {
         return JWTClient.SESSION_DURATION + "_" + this.#origin;
-    }
+    }*/
 }
 
 /************** EXPORT objects **************/
@@ -183,5 +205,6 @@ export const jwtClient = new JWTClient(
     "http://localhost:8001",
     "/api/v1/common/auth/login",
     "/api/v1/common/auth/refresh",
-    "/api/v1/common/auth/logout"
-    );
+    "/api/v1/common/auth/logout",
+    "/api/v1/common/auth/duration"
+);

@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="651c79ee-456b-40a7-819f-ddc181efcb48" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/auth-api/JWTClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/JWTClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth-api/example.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/example.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/auth-api/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
