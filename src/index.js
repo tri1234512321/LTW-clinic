@@ -12,6 +12,7 @@ import Service from './containers/Pages/Service/Service';
 import Cart from './containers/Pages/Cart/Cart';
 import Payment from './containers/Pages/Payment/Payment';
 import AdminMember from './containers/Admin/Member';
+import ProductDetail from './containers/Pages/ProductDetail/ProductDetail';
 
 export default function App() {
   return (
@@ -22,12 +23,12 @@ export default function App() {
         <Route path="register" element={<Register />} />
         <Route path="about" element={<About />} />
         <Route path="product" element={<Product />} />
-        <Route path="home" element={<Home />} />
         <Route path="contact" element={<Contact />} />
         <Route path="cart" element={<Cart />} />
         <Route path="payment" element={<Payment />} />
         <Route path="service" element={<Service />} />
         <Route path="/admin/member" element={<AdminMember />} />
+        <Route path="/detail/:id" element={<ProductDetail />} />
       </Routes>
     </BrowserRouter>
   );
