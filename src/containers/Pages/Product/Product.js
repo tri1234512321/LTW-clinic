@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 import { Link } from 'react-router-dom';
+import { jwtClient } from '../../../utilities/JWTClient';
+import { useNavigate } from 'react-router-dom';
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +26,64 @@ export default function Products() {
 
     fetchData();
   }, []);
+
+
+  // useEffect(() => {
+  //   const addToCart = async (productId) => {
+  //     try {
+  //       if (!jwtClient.stillHasTokenAfter(86400)) {
+  //         console.log('User does not have a valid token. Redirect to login or show an error message.');
+  //         alert('Bạn cần đăng nhập để mua hàng.');
+  //         navigate('/login');
+  //         return;
+  //       }
+  
+  //       const response = await jwtClient.fetch(`/api/v1/business/cart?productId=${productId}`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({}),
+  //       });
+  
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+  
+  //       console.log('Item added to the cart:', productId);
+  //     } catch (error) {
+  //       console.error('Error adding item to the cart:', error);
+  //     }
+  //   };
+  //   addToCart();
+  // }, [])
+
+  const addToCart = async (productId) => {
+    try {
+      if (!jwtClient.stillHasTokenAfter(86400)) {
+        console.log('User does not have a valid token. Redirect to login or show an error message.');
+        alert('Bạn cần đăng nhập để mua hàng.');
+        navigate('/login');
+        return;
+      }
+
+      const response = await jwtClient.fetch(`/api/v1/business/cart?productId=${productId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({}),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      console.log('Item added to the cart:', productId);
+    } catch (error) {
+      console.error('Error adding item to the cart:', error);
+    }
+  };
 
   return (
     <div>
@@ -54,11 +115,11 @@ export default function Products() {
 
                   <div className="flex flex-row p-2 md:p-4 my-5">
                     <div className="text-2xl basis-2/3">{product.name}</div>
-                    <div className="text-2xl text-primary basis-1/3">{`${product.price}%`}</div>
+                    <div className="text-2xl text-primary basis-1/3">{`${product.price}$`}</div>
                   </div>
 
                   <div className="text-center pb-5">
-                    <button className="text-xl font-bold rounded-xl p-2 border-primary border-2 text-primary hover:bg-primary hover:text-white transition duration-500">+ Giỏ hàng</button>
+                    <button className="text-xl font-bold rounded-xl p-2 border-primary border-2 text-primary hover:bg-primary hover:text-white transition duration-500" onClick={() => addToCart(product.id)}>+ Giỏ hàng</button>
                   </div>
                 </article>
               ))}

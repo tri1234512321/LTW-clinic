@@ -44,10 +44,10 @@ export default function ProductDetail() {
                             Mã sản phẩm: {product.id}<br />
                             Trong kho: {product.inStockCount}<br />
                         </div>
-                        <button className="text-xl my-5 font-bold rounded-xl p-2 border-primary border-2 text-primary hover:bg-primary hover:text-white transition duration-500">+ Giỏ hàng</button>
+                        
                     </div>
                 </div>
-                <div className="px-20 my-10 min-h-[300px]">
+                <div className="px-20 my-10 min-h-[380px]">
                     <div className="text-2xl font-bold">Mô tả sản phẩm</div>
                     <div className=" my-5">
                         {product.description}
