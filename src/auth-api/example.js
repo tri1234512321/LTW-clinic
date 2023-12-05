@@ -2,7 +2,7 @@
 // Please follow timestamp below
 
 // import JWTClient for making request
-import {jwtClient, JWTClient} from "./JWTClient.js";
+import {jwtClient} from "./JWTClient.js";
 
 
 /************ Timestamp: 0 *****************/
@@ -26,7 +26,7 @@ else {
 
 /************ Timestamp: 1 *****************/
 // make request to server to get cart items
-const data = await jwtClient.fetch("/dev/cart")
+const data = await jwtClient.fetch("/api/v1/dev/products")
     .then(response => response.json());
 
 // or you can also use

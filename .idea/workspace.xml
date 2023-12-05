@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="651c79ee-456b-40a7-819f-ddc181efcb48" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/About/About.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Cart/Cart.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Contact/Contact.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Home/Home.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Login/Login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Payment/Payment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Product/Product.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Register/Register.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Pages/Service/Service.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth-api/JWTClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/JWTClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth-api/example.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/example.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth-api/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,24 +42,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "htriFE",
-    "last_opened_file_path": "/home/nhtri/xampp-dev/LTW-clinic/src/utils",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/home/nhtri/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/232.9921.42/plugins/javascript-impl/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;htriFE&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nhtri/xampp-dev/LTW-clinic/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/home/nhtri/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/232.9921.42/plugins/javascript-impl/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/src/components" />
       <recent name="$PROJECT_DIR$/src/utils" />
     </key>
   </component>
@@ -77,7 +75,8 @@
       <updated>1701626802052</updated>
       <workItem from="1701626804343" duration="1055000" />
       <workItem from="1701627871728" duration="17853000" />
-      <workItem from="1701662053526" duration="25884000" />
+      <workItem from="1701662053526" duration="27270000" />
+      <workItem from="1701736840739" duration="4467000" />
     </task>
     <servers />
   </component>

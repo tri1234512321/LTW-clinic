@@ -7,13 +7,15 @@ export class JWTClient {
 
     #origin;
     #loginPath;
+    #logoutPath;
     #refreshPath;
     #accessToken;
 
-    constructor(origin, loginPath, refreshPath) {
+    constructor(origin, loginPath, refreshPath, logoutPath) {
         this.#origin = origin;
         this.#loginPath = loginPath;
         this.#refreshPath = refreshPath;
+        this.#logoutPath = logoutPath;
         this.#accessToken = null;
     }
 
@@ -35,8 +37,8 @@ export class JWTClient {
                 if (data.authorized) {
                     success = true;
                     this.#accessToken = data.accessToken;
-                    this.setCookie(this.createdAtKey(), Date.now(), {expires: new Date(data.hardDuration + Date.now())});
-                    this.setCookie(this.durationKey(), data.hardDuration * 1000, {expires: new Date(data.hardDuration + Date.now())});
+                    this.setCookie(this.createdAtKey(), Date.now(), {expires: new Date(data.hardDuration * 1000 + Date.now())});
+                    this.setCookie(this.durationKey(), data.hardDuration * 1000, {expires: new Date(data.hardDuration * 1000 + Date.now())});
                 }
             })
             .catch(err => {
@@ -45,6 +47,19 @@ export class JWTClient {
             .finally();
 
         return success;
+    }
+
+    async logout() {
+        await this.fetch(this.#logoutPath, {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(res => res.status === 200)
+            .then(success => success ? console.log("LOGOUT SUCCESSFUL...") : console.log("LOGOUT FAILED..."))
+
+        this.#accessToken = null;
+        this.setCookie(this.createdAtKey(), "", {expires: new Date(0)});
+        this.setCookie(this.durationKey(), "", {expires: new Date(0)});
     }
 
     async refreshAccessToken()  {
@@ -165,4 +180,8 @@ export class JWTClient {
 
 /************** EXPORT objects **************/
 export const jwtClient = new JWTClient(
-    "http://localhost:8001", "/auth/login", "/auth/refresh");
+    "http://localhost:8001",
+    "/api/v1/common/auth/login",
+    "/api/v1/common/auth/refresh",
+    "/api/v1/common/auth/logout"
+    );

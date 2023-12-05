@@ -181,7 +181,6 @@ export default function CrudTable({
     const actions = ["CREATE", "READ", "UPDATE", "DELETE"];
 
     const [dataRows, setDataRows] = useState([]);
-    const [shouldFetchData, setShouldFetchData] = useState(true);
 
     const [dataInputs, setDataInputs] = useState(emptyDataRow(headers));
 
@@ -192,9 +191,22 @@ export default function CrudTable({
     const [excludeFor, setExcludeFor] = useState([]);
 
 
-    useEffect(() => fetchData(urlPath, setDataRows), []);
+    useEffect( () => {
+        if (! jwtClient.stillHasTokenAfter(7200)) {
+            // redirect to login page
+            // because this is example, we will log in here
+            if (jwtClient.login("dr_john", "hashed_password")) {
+                console.log("Login successful...");
+            }
+            else {
+                console.log("Login failed...");
+            }
+            /***** BIG NOTE: In actually situation, redirect to login page. This is just example *****/
+        }
 
-    const values = ["CREATE", "READ", "UPDATE", "DELETE"];
+        fetchData(urlPath, setDataRows);
+    }, [urlPath]);
+
 
     return (
         <div>
