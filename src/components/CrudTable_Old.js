@@ -118,8 +118,20 @@ function CrudRadioButton({
 }
 
 function AlertMessage({
-    message
+    initMessage,
+    defaultMessage
 }) {
+    const [message, setMessage] = useState(true);
+
+    useEffect(() => {
+        setMessage(initMessage)
+        const timeout = setTimeout(() => {
+            setMessage(defaultMessage);
+        }, 2000); // 10000 milliseconds = 10 seconds
+
+        return () => clearTimeout(timeout);
+    }, [initMessage]);
+
     return (
         <div className={`ms-3 p-2 text-sm`}>
             <div className="bg-blue-500 text-white p-2 shadow-md">
@@ -133,12 +145,13 @@ function AlertMessage({
 function ActionBar({
     selectedAction,
     actions,
-    actionMessage,
+    alertMessage,
+    defaultMessage,
     onActionButtonClickedHandle,
     onExecuteButtonClickedHandle,
 }) {
     return (
-        <div className="mb-2 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div className="mt-4 mb-2 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <button
                 className="px-4 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
                 onClick={(e) => onExecuteButtonClickedHandle(e)}
@@ -152,14 +165,14 @@ function ActionBar({
                                  onActionButtonClickedHandle={(e) => onActionButtonClickedHandle(e)}
                 />
             ))}
-            <AlertMessage message={actionMessage}/>
+            <AlertMessage initMessage={alertMessage} defaultMessage={defaultMessage}/>
         </div>
     );
 }
 
 
 // crud table
-export default function CrudTable({
+export default function CrudTable_Old({
     tableName,
     urlPath,
     headers,
@@ -177,56 +190,53 @@ export default function CrudTable({
     const [allEditable, setAllEditable] = useState(true);
     const [excludeFor, setExcludeFor] = useState([]);
 
-    useEffect(() => {
-        setDataRows([]);
-        setDataInputs(emptyDataRow(headers));
-        setAction("READ");
-        setAllEditable(true);
-        setExcludeFor([]);
+
+    useEffect( () => {
+        if (! jwtClient.stillHasTokenAfter(7200)) {
+            // redirect to login page
+            // because this is example, we will log in here
+            if (jwtClient.login("dr_john", "hashed_password")) {
+                console.log("Login successful...");
+            }
+            else {
+                console.log("Login failed...");
+            }
+            /***** BIG NOTE: In actually situation, redirect to login page. This is just example *****/
+        }
+
         fetchData(urlPath, setDataRows);
-    }, [tableName]);
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setActionMessage(tableName);
-        }, 1500);
-
-        return () => clearTimeout(timeout);
-    }, [actionMessage]);
+    }, [urlPath]);
 
 
     return (
         <div>
             <ActionBar actions={actions}
                        selectedAction={action}
-                       actionMessage={actionMessage}
+                       alertMessage={actionMessage}
+                       defaultMessage={tableName}
                        onActionButtonClickedHandle={
-                           (e) => onActionButtonClickedHandle(
-                               e, headers, setAction, setDataInputs, setAllEditable, setExcludeFor, idName, urlPath, setDataRows)
+                           (e) => onActionButtonClickedHandle(e, headers, setAction, setDataInputs, setAllEditable, setExcludeFor, idName)
                        }
-                       onExecuteButtonClickedHandle={(e) => onExecuteButtonClickedHandle(
-                           e, action, dataInputs, urlPath, idName, setDataRows, setActionMessage)}
+                       onExecuteButtonClickedHandle={(e) =>
+                           onExecuteButtonClickedHandle(e, action, dataInputs, urlPath, idName, setDataRows, setActionMessage)}
             />
 
-            <div className="overflow-scroll h-1/3 max-h-[60vh]">
-                <table className="table-auto w-auto border-collapse">
-                    <thead>
+            <table className="table-auto w-auto border-collapse">
+                <thead>
                     <HeaderRow headers={headers} />
-                    </thead>
+                </thead>
 
-                    <tbody>
+                <tbody>
                     <DataInputRow rowData={dataInputs} headers={headers}
                                   allEditable={allEditable} excludeFor={excludeFor}
-                                  onInputChangedHandle={(e, key) => onInputChangedHandle(
-                                      e, key, dataInputs, setDataInputs, action, urlPath, setDataRows)}
+                                  onInputChangedHandle={(e, key) => onInputChangedHandle(e, key, dataInputs, setDataInputs)}
                     />
 
                     <DataGrid dataRows={dataRows} headers={headers}
                               onDataRowClickedHandle={(e) => onDataRowClickedHandle(e, dataRows, setDataInputs, dataInputs)}
                     />
-                    </tbody>
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
 
     )
@@ -240,64 +250,62 @@ function onExecuteButtonClickedHandle(e, action, dataInputs, path, idName, dataR
     console.log("OnExecuteButtonClickedHandle: " + action);
     console.log(dataInputs);
 
-    let queryPath = "";
+    let url = path;
     switch (action) {
         case "CREATE":
-            queryPath = path + buildQueryStringFrom(dataInputs);
-            executeUpdateQuery(
-                "POST", queryPath, path,
-                true, "Create successful...",
-                "Create failed...", true,
-                dataRowsSetter, actionMessageSetter)
+            jwtClient
+                .fetch(path + buildQueryStringFrom(dataInputs), {method: "POST"})
+                .then(response => response.status === 200)
+                .then(isSuccess => {
+                    if (isSuccess) {
+                        actionMessageSetter("Create successful...");
+                        fetchData(url, dataRowsSetter)
+                    }
+                    else {
+                        actionMessageSetter("Create failed...");
+                    }
+                })
             break;
         case "READ":
-            fetchData(path + buildQueryStringFrom(dataInputs), dataRowsSetter);
+            jwtClient
+                .fetch(path + buildQueryStringFrom(dataInputs), {method: "GET"})
+                .then(response => response.json())
+                .then(data => dataRowsSetter(data));
             break;
         case "UPDATE":
-            queryPath = path + "/" + dataInputs[idName] + buildQueryStringFrom(dataInputs);
-            executeUpdateQuery(
-                "PUT", queryPath, path,
-                true, "Update successful...",
-                "Update failed...", true,
-                dataRowsSetter, actionMessageSetter)
+            jwtClient
+                .fetch(path + "/" + dataInputs[idName] + buildQueryStringFrom(dataInputs, [idName]), {method: "PUT"})
+                .then(response => response.status === 200)
+                .then(isSuccess => {
+                    if (isSuccess) {
+                        actionMessageSetter("Update successful...");
+                        fetchData(url, dataRowsSetter)
+                    }
+                    else {
+                        actionMessageSetter("Update failed...");
+                    }
+                })
             break;
         case "DELETE":
-            queryPath = path + "/" + dataInputs[idName] + buildQueryStringFrom(dataInputs);
-            executeUpdateQuery(
-                "DELETE", queryPath, path,
-                true, "Delete successful...",
-                "Delete failed...", true,
-                dataRowsSetter, actionMessageSetter)
+            jwtClient
+                .fetch(path + dataInputs[idName] + buildQueryStringFrom(dataInputs, [idName]), {method: "DELETE"})
+                .then(response => response.status === 200)
+                .then(isSuccess => {
+                    if (isSuccess) {
+                        actionMessageSetter("Delete successful...");
+                        fetchData(url, dataRowsSetter)
+                    }
+                    else {
+                        actionMessageSetter("Delete failed...");
+                    }
+                })
             break;
     }
 }
 
 
-function executeUpdateQuery(method, queryPath, reFetchPath, fetchDataWhenSuccess, successMessage, failedMessage,
-                            useServerMessage, dataRowsSetter, actionMessageSetter) {
-    let isSuccess = false;
-    jwtClient
-        .fetch(queryPath, {method: method})
-        .then(response => {
-            if (response.status === 200) {
-                isSuccess = true;
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (isSuccess) {
-                actionMessageSetter(useServerMessage ? data.message ?? successMessage : successMessage);
-                fetchData(reFetchPath, dataRowsSetter)
-            }
-            else {
-                actionMessageSetter(useServerMessage ? data.message ?? failedMessage : failedMessage);
-            }
-        })
-}
-
-
 // on data input changed handle
-function onInputChangedHandle(e, key, dataInputs, dataInputsSetter, action, urlPath, dataRowsSetter) {
+function onInputChangedHandle(e, key, dataInputs, dataInputsSetter) {
     const value = e.target.value;
 
     console.log("OnInputChangedHandle: " + key + " - " + value);
@@ -306,15 +314,10 @@ function onInputChangedHandle(e, key, dataInputs, dataInputsSetter, action, urlP
 
     newDataInputs[key] = value;
     dataInputsSetter(newDataInputs);
-
-    if (action === "READ") {
-        fetchData(urlPath + buildQueryStringFrom(newDataInputs), dataRowsSetter);
-    }
 }
 
 // on action changed handle
-function onActionButtonClickedHandle(e, headers, actionSetter, dataInputsSetter,
-                                     allEditableSetter, excludeForSetter, idName, urlPath, dataRowsSetter) {
+function onActionButtonClickedHandle(e, headers, actionSetter, dataInputsSetter, allEditableSetter, excludeForSetter, idName) {
     const action = e.target.value;
     actionSetter(action);
 
@@ -328,7 +331,6 @@ function onActionButtonClickedHandle(e, headers, actionSetter, dataInputsSetter,
             allEditableSetter(true);
             excludeForSetter([]);
             dataInputsSetter(emptyDataRow(headers));
-            fetchData(urlPath, dataRowsSetter);
             break;
         case "UPDATE":
             allEditableSetter(true);
@@ -403,7 +405,6 @@ function buildQueryStringFrom(dataInputs, excludes = []) {
             .map((key) => key + "=" + dataInputs[key])
             .join("&");
 }
-
 
 
 
