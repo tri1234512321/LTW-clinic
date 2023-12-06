@@ -182,6 +182,10 @@ export default function CrudTable({
     const [excludeFor, setExcludeFor] = useState([]);
 
     useEffect(() => {
+        fetchData(urlPath + initQueryString, setDataRows);
+    }, []);
+
+    useEffect(() => {
         setDataRows([]);
         setDataInputs(emptyDataRow(headers));
         setAction("READ");
@@ -352,6 +356,10 @@ function onDataRowClickedHandle(e, dataRows, setter, dataInputs, onCellDoubleCli
 
     let rowIndex = e.target.parentNode.rowIndex - 2;
 
+    if (rowIndex === null || rowIndex === undefined || isNaN(rowIndex)) {
+        return;
+    }
+
     console.log("OnTableRowClicked HANDLING | NUMCLICK: " + e.detail);
 
     let rowData = dataRows[rowIndex];
@@ -373,6 +381,10 @@ function onDataRowClickedHandle(e, dataRows, setter, dataInputs, onCellDoubleCli
         let cell = e.target;
 
         let colIndex = cell.cellIndex;
+
+        if (colIndex === null || colIndex === undefined) {
+            return;
+        }
 
         console.log("OnTableRowClicked Get CELL COL-INDEX: " + colIndex);
 

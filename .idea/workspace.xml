@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="651c79ee-456b-40a7-819f-ddc181efcb48" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth-api/JWTClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/JWTClient.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/auth-api/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CrudEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdminPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +54,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Merging htriFE",
+    "git-widget-placeholder": "htriFE",
     "last_opened_file_path": "/home/nhtri/xampp-dev/LTW-clinic/src/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -87,7 +86,7 @@
       <workItem from="1701662053526" duration="27270000" />
       <workItem from="1701736840739" duration="4467000" />
       <workItem from="1701843810333" duration="15413000" />
-      <workItem from="1701867070623" duration="16849000" />
+      <workItem from="1701867070623" duration="23921000" />
     </task>
     <servers />
   </component>
