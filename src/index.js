@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import './index.css';
 import Login from './containers/Pages/Login/Login';
 import Register from './containers/Pages/Register/Register';
@@ -30,6 +30,20 @@ import { faTwitter, faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 library.add(fas, faTwitter, faFontAwesome)
 
 export default function App() {
+  const navigate = useNavigate();
+  const [tokenExpired, setTokenExpired] = useState(false);
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    if (tokenExpired) {
+      navigate("/login");
+    }
+  }, [tokenExpired]);
+
+  useEffect(() => {
+    jwtClient.setOnRefreshTokenFailedCallback(() => setTokenExpired(true));
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>
