@@ -14,6 +14,12 @@ export default function AdminPage({
     const [greeting, setGreeting] = useState("");
 
     useEffect(() => {
+        if (tokenExpired) {
+            navigate("/login");
+        }
+    }, [tokenExpired]);
+
+    useEffect(() => {
         jwtClient.setOnRefreshTokenFailedCallback(() => setTokenExpired(true));
     }, []);
 
