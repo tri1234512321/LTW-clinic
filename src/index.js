@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './index.css';
 import Login from './containers/Pages/Login/Login';
 import Register from './containers/Pages/Register/Register';
+import Account from './containers/Pages/Account/Account';
+import Password from './containers/Pages/Password/Password';
 import About from './containers/Pages/About/About';
 import Product from './containers/Pages/Product/Product';
 import Home from './containers/Pages/Home/Home';
@@ -13,6 +15,10 @@ import Cart from './containers/Pages/Cart/Cart';
 import Payment from './containers/Pages/Payment/Payment';
 import New from './containers/Pages/New/New';
 import Article from './containers/Pages/New/Article';
+import Article1000002 from './containers/Pages/New/Article-1000002';
+import Article1000003 from './containers/Pages/New/Article-1000003';
+import Article1000004 from './containers/Pages/New/Article-1000004';
+
 import ProductDetail from './containers/Pages/ProductDetail/ProductDetail';
 import AdminMember from './containers/Admin/Member';
 import AdminComment from './containers/Admin/Comment';
@@ -36,6 +42,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="account" element={<Account />} />
+        <Route path="password" element={<Password />} />
         <Route path="about" element={<About />} />
         <Route path="product" element={<Product />} />
         <Route path="home" element={<Home />} />
@@ -44,7 +52,10 @@ export default function App() {
         <Route path="payment" element={<Payment />} />
         <Route path="service" element={<Service />} />
         <Route path="new" element={<New />} />
-        <Route path="article" element={<Article />} />
+        <Route path="article/id=1000001" element={<Article />} />
+        <Route path="article/id=1000002" element={<Article1000002 />} />
+        <Route path="article/id=1000003" element={<Article1000003 />} />
+        <Route path="article/id=1000004" element={<Article1000004 />} />
         <Route path="/detail/:id" element={<ProductDetail />} />
         <Route path="/admin/member" element={<AdminMember />} />
         <Route path="/admin/comment" element={<AdminComment />} />
@@ -62,5 +73,3 @@ export default function App() {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(<App />);
-
-
