@@ -1,9 +1,11 @@
 // export JwtClient object
 
-
 export class JWTClient {
     //static SESSION_CREATED_AT =  '__jwtc__iat';
     //static SESSION_DURATION =  '__jwtc__duration';
+
+    static REFRESH_TOKEN_FAILED = "REFRESH_ACCESS_TOKEN_FAILED";
+    static LOGOUT_ERROR = "LOGOUT_ERROR";
 
     #origin;
     #loginPath;
@@ -11,14 +13,20 @@ export class JWTClient {
     #refreshPath;
     #checkDurationPath;
     #accessToken;
+    #onRefreshTokenFailedCallback;
 
-    constructor(origin, loginPath, refreshPath, logoutPath, checkDurationPath) {
+    constructor(origin, loginPath, refreshPath, logoutPath, checkDurationPath, onRefreshTokenFailedCallback = () => {}) {
         this.#origin = origin;
         this.#loginPath = loginPath;
         this.#refreshPath = refreshPath;
         this.#logoutPath = logoutPath;
         this.#checkDurationPath = checkDurationPath;
         this.#accessToken = null;
+        this.#onRefreshTokenFailedCallback = onRefreshTokenFailedCallback;
+    }
+
+    setOnRefreshTokenFailedCallback(onRefreshTokenFailedCallback) {
+        this.#onRefreshTokenFailedCallback = onRefreshTokenFailedCallback;
     }
 
     async login(username, password) {
@@ -39,8 +47,6 @@ export class JWTClient {
                 if (data.authorized) {
                     success = true;
                     this.#accessToken = data.accessToken;
-                    //this.setCookie(this.createdAtKey(), Date.now(), {expires: new Date(data.hardDuration * 1000 + Date.now())});
-                    //this.setCookie(this.durationKey(), data.hardDuration * 1000, {expires: new Date(data.hardDuration * 1000 + Date.now())});
                 }
             })
             .catch(err => {
@@ -51,46 +57,71 @@ export class JWTClient {
         return success;
     }
 
-    async logout() {
-        await this.fetch(this.#logoutPath, {
+    /*async logout() {
+        let isSuccess = await this.fetch(this.#logoutPath, {
                 method: 'POST',
                 credentials: 'include'
             })
-            .then(res => res.status === 200)
-            .then(success => success ? console.log("LOGOUT SUCCESSFUL...") : console.log("LOGOUT FAILED..."))
-
+            .then(res => {
+                if (res.status === 200) {
+                    console.log("IN JWTClient.logout()... LOGOUT SUCCESSFUL...")
+                    return true;
+                }
+                console.log("IN JWTClient.logout()... LOGOUT FAILED...")
+                return false;
+            })
         this.#accessToken = null;
-    }
+        return isSuccess;
+    }*/
 
-    async refreshAccessToken()  {
-        console.log("REFRESHING ACCESS TOKEN...");
-        let success = false;
-
-        const url = this.#origin + this.#refreshPath;
-
-        await fetch(url, {
+    logout() {
+        return this.fetch(this.#logoutPath, {
             method: 'POST',
             credentials: 'include'
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log("REFRESHED ACCESS TOKEN: " + "Fetching data...")
-                if (data.authorized) {
-                    success = true;
-                    this.#accessToken = data.accessToken;
-                    console.log("REFRESHED ACCESS TOKEN: Successfully");
+            .then(response => {
+                if (response.status === 200 || response.status === 401) {
+                    console.log("IN JWTClient.logout()... LOGOUT SUCCESSFUL...")
+                    this.#accessToken = null;
+                    return true;
                 }
+                console.log("IN JWTClient.logout()... LOGOUT FAILED...")
+                return Promise.reject(JWTClient.LOGOUT_ERROR);
             })
-            .catch(err => {
-                console.log("REFRESHED ACCESS TOKEN: Failed");
-                console.log(err);
-            })
-            .finally();
-
-        return success;
     }
 
-    async fetch(path, options = {}) {
+    refreshAccessToken()  {
+        console.log("REFRESHING ACCESS TOKEN...");
+
+        const url = this.#origin + this.#refreshPath;
+
+        let isRefreshSuccessful = false;
+
+        return fetch(url, {
+            method: 'POST',
+            credentials: 'include'
+        })
+            .then(response => {
+                if (response.status === 200) {
+
+                    isRefreshSuccessful = true;
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (isRefreshSuccessful) {
+                    this.#accessToken = data.accessToken;
+                    console.log("REFRESH ACCESS TOKEN SUCCESSFUL...");
+                    return true;
+                }
+                else {
+                    console.log("REFRESH ACCESS TOKEN FAILED...");
+                    return false;
+                }
+            })
+    }
+
+    /*async fetch(path, options = {}) {
         let success = false;
 
         const url = this.#origin + path;
@@ -111,7 +142,52 @@ export class JWTClient {
         }
 
         return response;
+    }*/
+
+    async fetch(path, options = {}) {
+        const url = this.#origin + path;
+
+        // add Authorization header to options
+        options.headers = options.headers || {};
+
+        options.headers['Authorization'] = 'Bearer ' + this.#accessToken;
+
+        let response =
+            fetch(url, options)
+                .then( (response) => {
+                    if (response.status === 401) {
+                        return this.refreshAccessToken();
+                    }
+                    else {
+                        return response;
+                    }
+                })
+                .then(response => {
+                    if (response instanceof Response) {
+                        return response;
+                    }
+                    else if (response) {
+                        options.headers['Authorization'] = 'Bearer ' + this.#accessToken;
+                        return fetch(url, options);
+                    }
+                    else {
+                        return Promise.reject(JWTClient.REFRESH_TOKEN_FAILED);
+                    }
+                })
+                .catch(reason => {
+                    if (reason === JWTClient.REFRESH_TOKEN_FAILED) {
+                        console.log("REFRESH ACCESS TOKEN FAILED...CALL CALLBACK FUNCTION...");
+                        this.#onRefreshTokenFailedCallback();
+                    }
+                    else {
+                        console.log(reason);
+                        return Promise.reject(reason);
+                    }
+                })
+
+        return response;
     }
+
 
     async fetchJson(url, options = {}) {
         return this.fetch(url, options).then(response => response.json());
@@ -206,5 +282,8 @@ export const jwtClient = new JWTClient(
     "/api/v1/common/auth/login",
     "/api/v1/common/auth/refresh",
     "/api/v1/common/auth/logout",
-    "/api/v1/common/auth/duration"
+    "/api/v1/common/auth/duration",
+    () => {
+        console.log("CALLBACK NAVIGATE TO LOGIN PAGE...");
+    }
 );

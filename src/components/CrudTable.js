@@ -1,11 +1,12 @@
 import {useEffect, useState} from "react";
-import {jwtClient} from "../auth-api/JWTClient.js";
+import {jwtClient, JWTClient} from "../auth-api/JWTClient.js";
+import {useNavigate} from "react-router-dom";
 
 // a row in crud table
 function DataRow({
     rowData,
     headers,
-    onDataRowClickedHandle,
+    onDataRowClickedHandle
 }) {
     return (
         <tr onClick={(e) => onDataRowClickedHandle(e)} className="cursor-pointer hover:bg-gray-100">
@@ -163,8 +164,11 @@ export default function CrudTable({
     tableName,
     urlPath,
     headers,
-    idName
+    idName,
+    initQueryString,
+    onCellDoubleClickedHandle
 }) {
+
     const actions = ["CREATE", "READ", "UPDATE", "DELETE"];
 
     const [dataRows, setDataRows] = useState([]);
@@ -183,8 +187,8 @@ export default function CrudTable({
         setAction("READ");
         setAllEditable(true);
         setExcludeFor([]);
-        fetchData(urlPath, setDataRows);
-    }, [tableName]);
+        fetchData(urlPath + initQueryString, setDataRows);
+    }, [tableName, initQueryString]);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -222,7 +226,8 @@ export default function CrudTable({
                     />
 
                     <DataGrid dataRows={dataRows} headers={headers}
-                              onDataRowClickedHandle={(e) => onDataRowClickedHandle(e, dataRows, setDataInputs, dataInputs)}
+                              onDataRowClickedHandle={(e) => onDataRowClickedHandle(
+                                  e, dataRows, setDataInputs, dataInputs, onCellDoubleClickedHandle, headers)}
                     />
                     </tbody>
                 </table>
@@ -343,17 +348,42 @@ function onActionButtonClickedHandle(e, headers, actionSetter, dataInputsSetter,
 
 
 // on data row clicked
-function onDataRowClickedHandle(e, dataRows, setter, dataInputs) {
+function onDataRowClickedHandle(e, dataRows, setter, dataInputs, onCellDoubleClickedHandle, headers) {
 
     let rowIndex = e.target.parentNode.rowIndex - 2;
 
-    // get data from dataRows
-    let data = dataRows[rowIndex];
-    console.log("From full data: " + dataRows);
-    console.log("Using index: " + rowIndex);
-    console.log("OnTableRowClicked Get DATA: " + data);
-    setter(data);
-    console.log(dataInputs);
+    console.log("OnTableRowClicked HANDLING | NUMCLICK: " + e.detail);
+
+    let rowData = dataRows[rowIndex];
+
+    if (e.detail === 2) {
+
+        console.log("ON " + e.detail + " CLICK HANDLING");
+        // get data from dataRows
+        console.log("From full data: " + dataRows);
+        console.log("Using index: " + rowIndex);
+        console.log("OnTableRowClicked Get DATA: " + rowData);
+        setter(rowData);
+        console.log(dataInputs);
+    }
+    else if (e.detail === 1) {
+
+        console.log("ON " + e.detail + " CLICK HANDLING");
+
+        let cell = e.target;
+
+        let colIndex = cell.cellIndex;
+
+        console.log("OnTableRowClicked Get CELL COL-INDEX: " + colIndex);
+
+        let header = headers[colIndex];
+        let value = rowData[header];
+
+        onCellDoubleClickedHandle({
+            header: header,
+            value: value
+        });
+    }
 }
 
 // return empty data row
@@ -367,7 +397,7 @@ function emptyDataRow(headers) {
 
 
 // fetch data
-function fetchData(urlPath, callback) {
+/*function fetchData(urlPath, callback) {
     // fetch data from server
     if (!jwtClient.stillHasTokenAfter(7200)) {
         // redirect to login page
@@ -378,7 +408,7 @@ function fetchData(urlPath, callback) {
         else {
             console.log("Login failed...");
         }
-        /***** BIG NOTE: In actually situation, redirect to login page. This is just example *****/
+        /!***** BIG NOTE: In actually situation, redirect to login page. This is just example *****!/
     }
     else {
         console.log("Token is still valid... no need to login...");
@@ -389,6 +419,39 @@ function fetchData(urlPath, callback) {
         .then(data => {
             console.log(data);
             callback(data)
+        });
+}*/
+
+function fetchData(urlPath, callback) {
+    // fetch data from server
+    /*if (!jwtClient.stillHasTokenAfter(7200)) {
+        // redirect to login page
+        // because this is example, we will log in here
+        if (jwtClient.login("dr_john", "hashed_password")) {
+            console.log("Login successful...");
+        }
+        else {
+            console.log("Login failed...");
+        }
+        /!***** BIG NOTE: In actually situation, redirect to login page. This is just example *****!/
+    }
+    else {
+        console.log("Token is still valid... no need to login...");
+    }*/
+
+    jwtClient.fetch(urlPath)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            callback(data)
+        })
+        .catch(err => {
+            console.log("Error...");
+            console.log(err);
+            if (err === JWTClient.REFRESH_TOKEN_FAILED) {
+                console.log("You need to login...");
+            }
+            return {}
         });
 }
 

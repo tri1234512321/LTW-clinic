@@ -5,9 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="651c79ee-456b-40a7-819f-ddc181efcb48" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/Footer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable_Old.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth-api/JWTClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/JWTClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/auth-api/test.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/auth-api/test.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CrudEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdminPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,6 +23,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -36,17 +42,21 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2Z2iv56oDeXDrZBkex8OUUmcxGf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "htriFE",
-    "last_opened_file_path": "/home/nhtri/xampp-dev/LTW-clinic/src/containers",
+    "git-widget-placeholder": "Merging htriFE",
+    "last_opened_file_path": "/home/nhtri/xampp-dev/LTW-clinic/src/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -58,8 +68,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/components" />
+      <recent name="$PROJECT_DIR$/src/containers" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/utils" />
     </key>
   </component>
@@ -75,6 +86,8 @@
       <workItem from="1701627871728" duration="17853000" />
       <workItem from="1701662053526" duration="27270000" />
       <workItem from="1701736840739" duration="4467000" />
+      <workItem from="1701843810333" duration="15413000" />
+      <workItem from="1701867070623" duration="16849000" />
     </task>
     <servers />
   </component>
