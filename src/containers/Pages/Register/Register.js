@@ -21,7 +21,7 @@ export default function Register() {
         formData.append('username', username);
         formData.append('password', password);
 
-        await jwtClient.fetch('/api/v1/common/auth/create', {
+        await jwtClient.fetch('/api/v1/content/user/create', {
             method: 'POST',
             credentials: 'include',
             body: formData

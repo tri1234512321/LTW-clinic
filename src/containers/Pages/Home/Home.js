@@ -3,9 +3,9 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
-export default function Home() {
-
-
+export default function Home({
+    tokenExpired
+}) {
     const slides = [
         {
             url: 'https://images.unsplash.com/photo-1524222928538-afb4409a0d70?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -45,7 +45,7 @@ export default function Home() {
 
     return (
         <div className="">
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <section className="h-[600px] w-full m-auto pb-4 relative">
                 <div style={{ backgroundImage: `url(${slides[currentIdx].url})` }} className='w-full h-full bg-center bg-cover duration-500 brightness-[60%]'>
                 </div>
