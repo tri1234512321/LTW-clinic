@@ -6,7 +6,6 @@ import { jwtClient } from '../../../utilities/JWTClient';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 function CartItem({
     cartItemId,
     productId,
@@ -20,35 +19,38 @@ function CartItem({
     const totalPrice = (price * quantity).toFixed(2);
     return (
         <div className="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
-        <img src={`http://localhost:8001/res/images/product/${productId}.jpg`} className="w-full rounded-lg sm:w-40" alt={productName} />
-        <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-            <div className="mt-5 sm:mt-0">
-                <h2 className="text-lg font-bold text-gray-900">{productName}</h2>
-                <p className="mt-1 text-xs text-gray-700">{price} $</p>
-            </div>
-            <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
-                <div className="flex items-center border-gray-100">
-                    <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-primary" 
-                    onClick={function (e) {handleDecreaseButtonClicked(e, cartItemId)}}> - </span>
-                    <input className="h-8 w-8 border bg-white text-center text-xs outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" value={quantity} min="1" />
-                    <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-primary" 
-                    onClick={function (e) {handleIncreaseButtonClicked(e, cartItemId)}}> + </span>
+            <img src={`http://localhost:8001/res/images/product/${productId}.jpg`} className="w-full rounded-lg sm:w-40" alt={productName} />
+            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                <div className="mt-5 sm:mt-0">
+                    <h2 className="text-lg font-bold text-gray-900">{productName}</h2>
+                    <p className="mt-1 text-xs text-gray-700">{price} $</p>
                 </div>
-                <div className="flex items-center space-x-4">
-                    <p className="text-sm">{totalPrice} $</p>
-                    <button><MdOutlineDeleteForever size={20} className='text-red-500' 
-                    onClick={function (e) {handleDeleteButtonClicked(e, cartItemId)}} /></button>
+                <div className="mt-4 flex justify-between sm:space-y-6 sm:mt-0 sm:block sm:space-x-6">
+                    <div className="flex items-center border-gray-100">
+                        <span className="cursor-pointer rounded-l bg-gray-100 py-1 px-3.5 duration-100 hover:bg-primary"
+                            onClick={function (e) { handleDecreaseButtonClicked(e, cartItemId) }}> - </span>
+                        <input className="h-8 w-8 border bg-white text-center text-xs outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" type="number" value={quantity} min="1" />
+                        <span className="cursor-pointer rounded-r bg-gray-100 py-1 px-3 duration-100 hover:bg-primary"
+                            onClick={function (e) { handleIncreaseButtonClicked(e, cartItemId) }}> + </span>
+                    </div>
+                    <div className="flex items-center space-x-4">
+                        <p className="text-sm">{totalPrice} $</p>
+                        <button><MdOutlineDeleteForever size={20} className='text-red-500'
+                            onClick={function (e) { handleDeleteButtonClicked(e, cartItemId) }} /></button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     )
 }
 
 export default function CartPage() {
     const [cartItems, setCartItems] = useState([]);
     const navigate = useNavigate();
-
+    const handlePaymentButtonClick = () => {
+        // Navigate to the payment page with the total as state
+        navigate('/payment', { state: { total } });
+    };
 
     useEffect(() => {
         fetchData(`/api/v1/business/cart`, setCartItems)
@@ -71,7 +73,7 @@ export default function CartPage() {
                     <div className="rounded-lg md:w-2/3">
                         {/* Map through cart items */}
                         {cartItems.map((cartItem, index) =>
-                            <CartItem key = {index}
+                            <CartItem key={index}
                                 cartItemId={cartItem.id}
                                 productId={cartItem.productId}
                                 productName={cartItem.productName}
@@ -85,7 +87,7 @@ export default function CartPage() {
                     </div>
 
                     {/* Side bar */}
-                    
+
                     < div className="mt-6 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3" >
                         <div className="mb-2 flex justify-between">
                             <p className="text-gray-700">Tổng</p>
@@ -102,8 +104,11 @@ export default function CartPage() {
                                 <p className="mb-1 text-lg font-bold">{total.toFixed(2)} $</p>
                             </div>
                         </div>
-                        <button className="mt-6 w-full rounded-md bg-primary py-1.5 font-medium text-blue-50 hover:bg-teal-600">
-                            <a href='/payment'>Thanh toán</a>
+                        <button
+                            className="mt-6 w-full rounded-md bg-primary py-1.5 font-medium text-blue-50 hover:bg-teal-600"
+                            onClick={handlePaymentButtonClick}
+                        >
+                            Thanh toán
                         </button>
                     </div>
                 </div>
@@ -157,8 +162,8 @@ function fetchData(urlPath, callback) {
         .then(response => response.json())
         .then(data => {
             console.log("callback:" + callback)
-             {callback(data)}
+            { callback(data) }
         }
-            
+
         )
 }

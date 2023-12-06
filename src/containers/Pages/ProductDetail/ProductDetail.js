@@ -38,7 +38,7 @@ export default function ProductDetail() {
                     </div>
                     <div>
                         <div className="text-4xl font-bold">{product.name}</div>
-                        <div className="text-2xl text-primary my-5">{`${product.price}đ`}</div>
+                        <div className="text-2xl text-primary my-5">{`${product.price}$`}</div>
                         <div className="text-xl mb-5">Thông tin sản phẩm</div>
                         <div>
                             Mã sản phẩm: {product.id}<br />

@@ -28,35 +28,7 @@ export default function Products() {
   }, []);
 
 
-  // useEffect(() => {
-  //   const addToCart = async (productId) => {
-  //     try {
-  //       if (!jwtClient.stillHasTokenAfter(86400)) {
-  //         console.log('User does not have a valid token. Redirect to login or show an error message.');
-  //         alert('Bạn cần đăng nhập để mua hàng.');
-  //         navigate('/login');
-  //         return;
-  //       }
-  
-  //       const response = await jwtClient.fetch(`/api/v1/business/cart?productId=${productId}`, {
-  //         method: 'POST',
-  //         headers: {
-  //           'Content-Type': 'application/json'
-  //         },
-  //         body: JSON.stringify({}),
-  //       });
-  
-  //       if (!response.ok) {
-  //         throw new Error(`HTTP error! Status: ${response.status}`);
-  //       }
-  
-  //       console.log('Item added to the cart:', productId);
-  //     } catch (error) {
-  //       console.error('Error adding item to the cart:', error);
-  //     }
-  //   };
-  //   addToCart();
-  // }, [])
+
 
   const addToCart = async (productId) => {
     try {
