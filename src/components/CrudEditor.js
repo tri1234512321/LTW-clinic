@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import CrudTable from "./CrudTable";
+import {jwtClient} from "../auth-api/JWTClient.js"; 
 
 function ControlBar ({
     tables,
