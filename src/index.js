@@ -11,7 +11,7 @@ import Product from './containers/Pages/Product/Product';
 import Home from './containers/Pages/Home/Home';
 import Contact from './containers/Pages/Contact/Contact';
 import Service from './containers/Pages/Service/Service';
-import Cart from './containers/Pages/Cart/Cart';
+import Cart from './containers/Pages/Cart/CartPage';
 import Payment from './containers/Pages/Payment/Payment';
 import New from './containers/Pages/New/New';
 import Article from './containers/Pages/New/Article';
