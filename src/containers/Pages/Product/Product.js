@@ -77,14 +77,14 @@ export default function Products() {
           <div className="col-span-3">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {products.map(product => (
-                <article key={product.id} className="overflow-hidden rounded-lg shadow-lg m-10 col-span-1 md:col-span-1/3">
+                <article key={product.id} className="overflow-hidden rounded-lg shadow-lg m-10 col-span-1 md:col-span-1/3 flex flex-col justify-between">
                   <Link to={`/detail/${product.id}`}>
-                    <img alt={product.name} className="block h-auto w-full" src={`http://localhost:8001/api/v1/common/res/images/product/${product.id}.jpg`} />
+                    <img alt={product.name} className="block max-h-56" src={`http://localhost:8001/api/v1/common/res/images/product/${product.id}.jpg`} />
                   </Link>
 
                   <div className="flex flex-row p-2 md:p-4 my-5">
-                    <div className="text-2xl basis-2/3">{product.name}</div>
-                    <div className="text-2xl text-primary basis-1/3">{`${product.price}$`}</div>
+                    <div className="text-xl basis-2/3">{product.name}</div>
+                    <div className="text-xl text-primary basis-1/3">{`${product.price}$`}</div>
                   </div>
 
                   <div className="text-center pb-5">
