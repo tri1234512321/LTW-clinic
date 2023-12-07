@@ -3,12 +3,12 @@ import React from 'react'
 import Header from '../../../components/Header/Header.js';
 import Footer from '../../../components/Footer/Footer.js';
 
-import medicine from '../../../assets/new/medicine.jpg'
-import mengan from '../../../assets/new/men-gan.jpg'
-import maumui from '../../../assets/new/mau-mui.jpg'
-import canthi from '../../../assets/new/can-thi.jpg'
+import medicine from '../../../assets/New/medicine.jpg'
+import mengan from '../../../assets/New/men-gan.jpg'
+import maumui from '../../../assets/New/mau-mui.jpg'
+import canthi from '../../../assets/New/can-thi.jpg'
 
-import rightarrow from '../../../assets/new/right-arrow.png'
+import rightarrow from '../../../assets/New/right-arrow.png'
 import CommentSection from './comment.js';
 
 export default function Article1000003() {

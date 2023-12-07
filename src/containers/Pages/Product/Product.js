@@ -32,12 +32,7 @@ export default function Products() {
 
   const addToCart = async (productId) => {
     try {
-      if (!jwtClient.stillHasTokenAfter(86400)) {
-        console.log('User does not have a valid token. Redirect to login or show an error message.');
-        alert('Bạn cần đăng nhập để mua hàng.');
-        navigate('/login');
-        return;
-      }
+
 
       const response = await jwtClient.fetch(`/api/v1/business/cart?productId=${productId}`, {
         method: 'POST',
@@ -45,6 +40,8 @@ export default function Products() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({}),
+      }).catch(error => {
+        console.log(error)
       });
 
       if (!response.ok) {
