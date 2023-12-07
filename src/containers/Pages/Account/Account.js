@@ -29,7 +29,7 @@ export default function Account({
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
-            <div className="mb-24 mt-0">
+            <div className="pb-24 mt-0 bg-gray-100">
                 <div className='background-image h-[200px] grid grid-cols-2 '>
                     <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Hồ sơ cá nhân</div>
                 </div>

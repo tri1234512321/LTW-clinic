@@ -12,7 +12,7 @@ import password from "../../../assets/Infor/password.png";
 import order from "../../../assets/Infor/order.png";
 import notification from "../../../assets/Infor/notification.png";
 
-import canthi from '../../../assets/new/can-thi.jpg'
+import canthi from '../../../assets/New/can-thi.jpg'
 
 import "./Order.scss";
 
@@ -109,7 +109,7 @@ function OrderInfor({
                                     <p className="mt-1 text-base text-gray-700">{"100"} $</p>
                                     <p className="mt-1 text-base text-gray-700">x{"5"}</p>
                                 </div>
-                                
+
                                 <div className="flex place-items-center space-x-4">
                                     <p className="text-sm">{"500"} $</p>
                                 </div>

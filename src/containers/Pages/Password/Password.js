@@ -30,7 +30,7 @@ export default function Password({
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
-            <div className="mb-24 mt-0">
+            <div className="pb-24 mt-0 bg-gray-100">
                 <div className='background-image h-[200px] grid grid-cols-2 '>
                     <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Thay đổi mật khẩu</div>
                 </div>
@@ -89,7 +89,7 @@ function LeftNav({
                 </div>
                 <div class="item">
                     <div class="icon"><img src={order} alt="order"/></div>
-                    <div class="it"><a href="account">Thông tin đơn hàng</a></div>
+                    <div class="it"><a href="./order">Thông tin đơn hàng</a></div>
                 </div>
                 <div class="item">
                     <div class="icon"><img src={notification} alt="notification"/></div>
