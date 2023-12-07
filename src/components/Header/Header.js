@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { IoMdMenu } from "react-icons/io";
-import {JWTClient, jwtClient, noRedirectJwtClient} from "../../utilities/JWTClient";
+import {jwtClient} from "../../utilities/JWTClient";
 import {useNavigate} from 'react-router-dom'; 
 
 export default function Header({
@@ -9,39 +9,6 @@ export default function Header({
 }) {
     const navigate = useNavigate();
     const [isMenuOpen, setMenuOpen] = useState(false);
-    const [cartItemCount, setCartItemCount] = useState(0);
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-    useEffect(() => {
-        async function checkLoginAndSetFetching() {
-            let shouldPull = await noRedirectJwtClient.fetch("/api/v1/common/auth/user-info")
-                .then(res => true)
-                .catch(err => {
-                    if (err === JWTClient.REFRESH_TOKEN_FAILED) {
-                        setIsLoggedIn(false)
-                    }
-                })
-        }
-        checkLoginAndSetFetching();
-    }, [])
-
-    useEffect(() => {
-        let interval;
-        if (isLoggedIn) {
-            interval = setInterval(() => {
-                noRedirectJwtClient.fetch("/api/v1/business/cart/count")
-                    .then(res => res.json())
-                    .then(data => {
-                        setCartItemCount(data.count)
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-            }, 500);
-        }
-
-        return () => clearInterval(interval)
-    }, [isLoggedIn])
 
     const handleMenuLogin = () => {
         navigate("/login");
@@ -56,7 +23,7 @@ export default function Header({
     }
 
     const handleMenuLogout = () => {
-        handleLogoutButtonClicked(setIsLoggedIn)
+        handleLogoutButtonClicked()
     }
 
     const toggleMenu = () => {
@@ -112,34 +79,18 @@ export default function Header({
                     </ul>
                 </div>
 
-<<<<<<< HEAD
-                <div className="hidden sm:flex sm:flex-row items-center md:justify-end  md:basis-1/3">
-                    <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
-=======
                 <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
                     <button className="flex flex-row text-primary w-[145px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex relative">
->>>>>>> 6777f5eb4f21f5e3c930ce208006699eb3c68140
                         <a href="/cart" className="flex flex-row">
                             <HiMiniShoppingCart size={25} className="mr-3" />
                             <p className="pr-2">Giỏ hàng</p>
-                            {
-                                cartItemCount !== null && cartItemCount !== undefined && cartItemCount > 0 ?
-                                    <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center absolute left-[130px] bottom-8">
-                                        <p className="text-xs text-white w-full h-full place-content-center">
-                                            {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
-                                        </p>
-                                    </div> : null
-                            }
-                            {/*<div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center">
-                                <p className="text-xs text-white w-full h-full place-content-center">
-                                    {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
-                                </p>
-                            </div>*/}
-
+                            <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center absolute left-[130px] bottom-8">
+                                <p className="text-xs text-white w-full h-full place-content-center">{"4"}</p>
+                            </div>
                         </a>
                     </button>
                     {
-                        isLoggedIn === true
+                        tokenExpired === false
                             ?   <Dropdown
                                     trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold hover:text-yellow-400">Tài khoản</button>}
                                     menu={[
@@ -190,43 +141,6 @@ export default function Header({
                                     Liên hệ
                                 </a>
                             </li>
-<<<<<<< HEAD
-                            <li className="my-2">
-                                <a href="/cart" className="text-black hover:text-primary">
-                                    Giỏ hàng
-                                </a>
-                            </li>
-                            
-                            {
-                                tokenExpired === false?
-                                    <li className="my-2">
-                                        <a href="/account" className="text-black hover:text-primary">
-                                            Tài khoản
-                                        </a>
-                                    </li>
-                                :
-                                    <li className="my-2">
-                                        <a href="/login" className="text-black hover:text-primary">
-                                            Đăng nhập
-                                        </a>
-                                    </li>
-                            }
-                            {
-                                tokenExpired === false?
-                                    <li className="my-2">
-                                        <button className="text-black hover:text-primary" onClick={handleMenuLogout}>
-                                            Đăng xuất
-                                        </button>
-                                    </li>
-                                :
-                                    <li className="my-2">
-                                        <a href="/register" className="text-black hover:text-primary">
-                                            Đăng ký
-                                        </a>
-                                    </li>
-                            }
-=======
->>>>>>> 6777f5eb4f21f5e3c930ce208006699eb3c68140
                         </ul>
                     </div>
                 )}
@@ -265,16 +179,15 @@ const Dropdown = ({ trigger, menu }) => {
     );
 };
 
-async function handleLogoutButtonClicked(setIsLoggedIn) {
+async function handleLogoutButtonClicked() {
     await jwtClient.logout()
-    setIsLoggedIn(false)
-    jwtClient.fetch("/api/v1/common/auth/user-info")
-        .catch(err => {
-            if (err === JWTClient.REFRESH_TOKEN_FAILED) {
-                setIsLoggedIn(false)
-            }
-        })
+    .then(res=>{
+        jwtClient.fetch("/api/v1/common/auth/user-info")
         .catch(err => {
             console.log(err)
         })
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }
