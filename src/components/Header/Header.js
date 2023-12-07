@@ -113,13 +113,13 @@ export default function Header({
                 </div>
 
                 <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
-                    <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
+                    <button className="flex flex-row text-primary w-[145px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex relative">
                         <a href="/cart" className="flex flex-row">
                             <HiMiniShoppingCart size={25} className="mr-3" />
                             <p className="pr-2">Giỏ hàng</p>
                             {
                                 cartItemCount !== null && cartItemCount !== undefined && cartItemCount > 0 ?
-                                    <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center">
+                                    <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center absolute left-[130px] bottom-8">
                                         <p className="text-xs text-white w-full h-full place-content-center">
                                             {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
                                         </p>
@@ -130,6 +130,7 @@ export default function Header({
                                     {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
                                 </p>
                             </div>*/}
+
                         </a>
                     </button>
                     {
@@ -184,11 +185,6 @@ export default function Header({
                                     Liên hệ
                                 </a>
                             </li>
-                            <li className="my-2">
-                                <a href="/cart" className="text-black hover:text-primary">
-                                    Giỏ hàng
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 )}
@@ -235,5 +231,8 @@ async function handleLogoutButtonClicked(setIsLoggedIn) {
             if (err === JWTClient.REFRESH_TOKEN_FAILED) {
                 setIsLoggedIn(false)
             }
+        })
+        .catch(err => {
+            console.log(err)
         })
 }

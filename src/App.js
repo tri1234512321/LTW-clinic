@@ -45,7 +45,6 @@ export default function App() {
 
   useEffect(() => {
     if (tokenExpired) {
-      console.log("TOKEN EXPIRED... REDIRECT TO LOGIN PAGE...");
       navigate("/login");
     }
   }, [tokenExpired]);

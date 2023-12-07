@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react'
-import {Link,useNavigate} from 'react-router-dom'; 
+import {Link,useNavigate} from 'react-router-dom';
 
 import loginImg from '../../../assets/login.jpg'
 import googleImg from '../../../assets/google.svg'
 
 import {JWTClient, jwtClient, noRedirectJwtClient} from "../../../utilities/JWTClient";
+import {useHistory} from "react-router";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -12,6 +13,18 @@ export default function Login() {
     const [password, setpassword] = useState("");
     const [asAdmin, setAsAdmin] = useState(false);
 
+    /*const history = useHistory();
+
+    useEffect(() => {
+        const unlisten = history.listen(() => {
+            window.location.reload();
+        });
+        return () => {
+            unlisten();
+        };
+    }, [history]);*/
+
+    //window.location.reload();
     /*useEffect(() => {
         async function checkIfLoggedIn() {
             await jwtClient.fetch("/api/v1/common/auth/user-info")
