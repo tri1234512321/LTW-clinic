@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
+
 import { Link } from 'react-router-dom';
 import { jwtClient } from '../../../utilities/JWTClient';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 export default function Products({
   tokenExpired
 }) {
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +61,7 @@ export default function Products({
   return (
     <div>
       <Header tokenExpired={tokenExpired}/>
+      <Title namePage={"Sản Phẩm Phòng Khám"}/>
       <div className="my-24 mx-10 md:mx-10 lg:mx-24">
         <div className="grid grid-cols-1 md:grid-cols-4">
           <div className="">

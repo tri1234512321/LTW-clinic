@@ -1,7 +1,7 @@
 import React, { useState,useEffect } from "react";
 import {jwtClient} from "../../../utilities/JWTClient.js";
 
-import {useNavigate} from 'react-router-dom'; 
+// import {useNavigate} from 'react-router-dom'; 
 
 import member from '../../../assets/New/member.png'
 
@@ -9,7 +9,7 @@ import member from '../../../assets/New/member.png'
 export default function CommentSection({
     articleId
 }) {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [comments,setComments] = useState([])
     const [content,setContent] = useState("")
 

@@ -2,9 +2,11 @@
 
 import {jwtClient} from "../../../utilities/JWTClient.js";
 import React, { useState,useEffect } from "react";
+import {useNavigate} from 'react-router-dom'; 
 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
 
 import avatar from "../../../assets/Infor/avatar.png";
 import account from "../../../assets/Infor/account.png";
@@ -12,35 +14,62 @@ import password from "../../../assets/Infor/password.png";
 import order from "../../../assets/Infor/order.png";
 import notification from "../../../assets/Infor/notification.png";
 
-import canthi from '../../../assets/New/can-thi.jpg'
-
 import "./Order.scss";
 
 export default function Order({
     tokenExpired
 }) {
+    const navigate = useNavigate();
+    const handleButtonContact = () => {
+        console.log("handle button contact successfull!")
+        navigate("/contact");
+    };
+    const handleButtonReBuy = () => {
+        console.log("handle button Rebuy successfull!")
+        navigate("/product");
+    };
 
-    const [name, setName] = useState("")
-    const [oldPassword, setOldPassword] = useState("")
-    const [firstPassword, setFirstPassword] = useState("")
-    const [secondPassword, setSecondPassword] = useState("")
+    const [info, setInfo] = useState("")
+    const [orders, setOrders] = useState([]);
 
     useEffect(()=>{
-        fetchData("/api/v1/content/user/getinfor", setName)
+        fetchData("/api/v1/content/user/getinfor", setInfo)
     },[])
+
+    useEffect(() => {
+        fetchData(`/api/v1/content/productorder`, setOrders)
+    }, []);
 
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
             <div className="pb-24 mt-0 bg-gray-100">
-                <div className='background-image h-[200px] grid grid-cols-2 '>
-                    <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Thay đổi mật khẩu</div>
-                </div>
+                <Title namePage={"Thông Tin Đơn Hàng"}/>
                 
-                <div className='account-container mx-20'>
-                    <LeftNav name = {name}/>
+                <div className='mx-auto md:flex sm:p-5'>
+                    <LeftNav name = {info.fullName}/>
                     
-                    <OrderInfor />
+                    <div className='account-right  md:w-[80%] w-full'>
+                        <div class="headline mb-5">
+                            <p className="text-xl font-semibold">Đơn hàng</p>
+                            <p>Xem đơn hàng của bạn</p>
+                        </div>
+
+                        <div className="danhhSachDonHang">
+                            {orders.map(order =>
+                                <OrderInfor
+                                    orderId={order.id}
+                                    orderCreatedAt={order.createdAt}
+                                    orderIsPaid={order.isPaid}
+                                    orderIsDelivered={order.isDelivered}
+                                    orderStatus={order.status}
+                                    orderNote={order.note}
+                                    handleButtonContact={(e)=>handleButtonContact(e)}
+                                    handleButtonReBuy={(e)=>handleButtonReBuy(e)}
+                                />
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
             <Footer/>
@@ -52,7 +81,7 @@ function LeftNav({
     name
 }) {
     return (
-        <div className='account-left border-r border-solid border-gray-200'>
+        <div className='account-left border-r border-solid border-gray-200 md:w-[20%]'>
             <div class="headline">
                 <div class="image">
                     <img src= {avatar} alt="avatar" />
@@ -85,108 +114,106 @@ function LeftNav({
 }
 
 function OrderInfor({
+    orderId,
+    orderCreatedAt,
+    orderIsPaid,
+    orderIsDelivered,
+    orderStatus,
+    orderNote,
+    handleButtonContact,
+    handleButtonReBuy
 }){
+
+    const [orderItems, setOrderItems] = useState([]);
+    // const [orderPrice, setOrderPrice] = useState(0);
+
+    useEffect(() => {
+        fetchData("/api/v1/content/orderitem?oderId="+orderId, setOrderItems)
+    }, [orderId]);
+
+    let orderPrice = 0;
+    for(let i=0;i<orderItems.length;i++) {
+        orderPrice+=orderItems[i].price * orderItems[i].quantity
+    }
+
     return(
-        <div className='account-right '>
-            <div class="headline mb-5">
-                <p className="text-xl font-semibold">Đơn hàng</p>
-                <p>Xem đơn hàng của bạn</p>
-            </div>
-
-            <div className="danhhSachDonHang">
-                <div className="mb-5">
-                    <div className="border border-gray-300 px-5 rounded-b bg-white">
-                        <div className="py-2">
-                            <p>Đơn hàng</p>
-                        </div>
-
-                        <div className="justify-between border-t border-solid border-gray-200 py-3 sm:flex sm:justify-start">
-                            <img src={canthi} className="rounded-lg sm:w-20 border-gray-200 border" alt={"productName"} />
-                            
-                            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                <div className="mt-5 sm:mt-0">
-                                    <h2 className="text-lg font-bold text-gray-900">{"productName"}</h2>
-                                    <p className="mt-1 text-base text-gray-700">{"100"} $</p>
-                                    <p className="mt-1 text-base text-gray-700">x{"5"}</p>
-                                </div>
-
-                                <div className="flex place-items-center space-x-4">
-                                    <p className="text-sm">{"500"} $</p>
-                                </div>
-                            </div>
-                        </div>
+        <div>
+            <div className="mb-5">
+                <div className="border border-gray-300 px-5 rounded-b bg-white">
+                    <div className="py-2 sm:flex flex-row">
+                        <p className="basis-1/6 font-semibold text-red-400"> {orderStatus}</p>
+                        <p className="basis-2/6 font-semibold text-yellow-400">{orderIsPaid?"Đã thanh toán":"Chưa thanh toán"}</p>
+                        <p className="basis-2/6 font-semibold ">{orderNote}</p>
+                        <p className="basis-1/6">{orderCreatedAt}</p>
                     </div>
 
-                    <div className="bg-gray-50 border border-gray-300 p-5 rounded-t grid grid-cols-2">
-                        <button className="bg-red-500 hover:bg-red-600 font-semibold text-white py-2 px-8 rounded w-fit">
-                            Mua Lại
-                        </button>
-
-                        <p className='text-xl font-semibold justify-self-end'>
-                            Thành tiền: <span className="text-red-500">{"100"}</span> $
-                        </p>
-                    </div>
+                    {orderItems.map(orderItem =>
+                        <OrderItemInfor
+                            name={orderItem.product.name}
+                            price={orderItem.price}
+                            quantity={orderItem.quantity}
+                            productId={orderItem.productId}
+                        />
+                    )}
                 </div>
 
-                <div className="mb-5">
-                    <div className="border border-gray-300 px-5 rounded-b ">
-                        <div className="py-2">
-                            <p>Đơn hàng</p>
-                        </div>
-
-                        <div className="justify-between border-t border-solid border-gray-200 py-3 sm:flex sm:justify-start">
-                            <img src={canthi} className="rounded-lg sm:w-20 border-gray-200 border" alt={"productName"} />
-                            
-                            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                <div className="mt-5 sm:mt-0">
-                                    <h2 className="text-lg font-bold text-gray-900">{"productName"}</h2>
-                                    <p className="mt-1 text-base text-gray-700">{"100"} $</p>
-                                    <p className="mt-1 text-base text-gray-700">x{"5"}</p>
-                                </div>
-
-                                <div className="flex place-items-center space-x-4">
-                                    <p className="text-sm">{"500"} $</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="justify-between border-t border-solid border-gray-200 py-3 sm:flex sm:justify-start">
-                            <img src={canthi} className="rounded-lg sm:w-20 border-gray-200 border" alt={"productName"} />
-                            
-                            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                                <div className="mt-5 sm:mt-0">
-                                    <h2 className="text-lg font-bold text-gray-900">{"productName"}</h2>
-                                    <p className="mt-1 text-base text-gray-700">{"100"} $</p>
-                                    <p className="mt-1 text-base text-gray-700">x{"5"}</p>
-                                </div>
-
-                                <div className="flex place-items-center space-x-4">
-                                    <p className="text-sm">{"500"} $</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bg-gray-50 border border-gray-300 p-5 rounded-t grid grid-cols-2">
-                        <button className="bg-red-500 hover:bg-red-600 font-semibold text-white py-2 px-8 rounded w-fit">
-                            Mua Lại
+                <div className="bg-gray-50 border border-gray-300 p-5 rounded-t grid sm:grid-cols-2 grid-cols-1">
+                    {orderIsDelivered ?
+                        <button className="bg-red-500 hover:bg-red-600 font-semibold text-white py-2 px-4 rounded w-fit h-fit"
+                            onClick={handleButtonReBuy}
+                        >
+                            Mua lại
                         </button>
-
-                        <p className='text-xl font-semibold justify-self-end'>
-                            Thành tiền: <span className="text-red-500">{"100"}</span> $
-                        </p>
-                    </div>
+                    :
+                        <button className="bg-red-500 hover:bg-red-600 font-semibold text-white py-2 px-4 rounded w-fit h-fit"
+                            onClick={handleButtonContact}
+                        >
+                            Liên Hệ
+                        </button>
+                    }
+                    
+                    <p className='text-xl font-semibold sm:justify-self-end'>
+                        Thành tiền: <span className="text-red-500">{orderPrice}</span> $
+                    </p>
                 </div>
             </div>
         </div>
     )
 }
 
-function fetchData(urlPath, setName) {
+function OrderItemInfor({
+    name,
+    price,
+    quantity,
+    productId
+}){
+    const totalPrice = price*quantity 
+
+    return(
+        <div className="justify-between border-t border-solid border-gray-200 py-3 sm:flex sm:justify-start">
+            <img src={`http://localhost:8001/res/images/product/${productId}.jpg`} className="rounded-lg w-20 border-gray-200 border" alt={"alt"} />
+            
+            <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+                <div className="mt-5 sm:mt-0">
+                    <h2 className="text-lg font-bold text-gray-900">{name}</h2>
+                    <p className="mt-1 text-base text-gray-700">{price} $</p>
+                    <p className="mt-1 text-base text-gray-700">x{quantity}</p>
+                </div>
+
+                <div className="flex place-items-center space-x-4">
+                    <p className="text-sm">{totalPrice} $</p>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+function fetchData(urlPath, callback) {
     jwtClient.fetch(urlPath)
         .then(response => response.json())
         .then(data => {
-            console.log(data);
-            setName(data.fullName);
+            // console.log(data);
+            callback(data)
         })
         .catch(error => {
             console.log(error)

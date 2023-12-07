@@ -3,6 +3,8 @@ import { BsFillPinMapFill } from "react-icons/bs";
 import { AiOutlineMail } from "react-icons/ai";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
+import Title from '../../../components/Title/Title.js';
+
 import { BsSend } from "react-icons/bs";
 
 export default function Contact({
@@ -11,11 +13,12 @@ export default function Contact({
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
-            <div className="my-10  py-20 px-56">
+            <Title namePage={"Liên Hệ Phòng Khám"}/>
+            <div className="my-10  py-20 lg:px-52 md:px-32 px-5">
                 <div className="text-5xl font-bold">Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với chúng tôi</div>
 
-                <div className="flex flex-row mt-20">
-                    <div className="basis-full md:basis-1/2 text-xl">
+                <div className="sm:flex flex-row mt-20">
+                    <div className="basis-full lg:basis-1/2 text-xl">
                         <div className="my-10 flex">
                             <BsFillPinMapFill size={30} className="mr-10 text-primary" />
                             TP.HCM
@@ -29,9 +32,9 @@ export default function Contact({
                             0123456789
                         </div>
                     </div>
-                    <div className="basis-full md:basis-1/2">
+                    <div className="basis-full lg:basis-1/2">
                         <form>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
                                 <div className="col-span-1">
                                     <label className="text-xl">Họ và tên</label>
                                     <input type="text" className="w-full border-2 border-gray-300 rounded-md p-2" />
@@ -41,7 +44,7 @@ export default function Contact({
                                     <input type="email" className="w-full border-2 border-gray-300 rounded-md p-2" />
                                 </div>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
                                 <div className="col-span-1">
                                     <label className="text-xl">Số điện thoại</label>
                                     <input type="text" className="w-full border-2 border-gray-300 rounded-md p-2" />

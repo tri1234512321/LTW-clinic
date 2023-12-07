@@ -5,6 +5,7 @@ import React, { useState,useEffect } from "react";
 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
 
 import avatar from "../../../assets/Infor/avatar.png";
 import account from "../../../assets/Infor/account.png";
@@ -31,11 +32,9 @@ export default function Password({
         <div>
             <Header tokenExpired={tokenExpired}/>
             <div className="pb-24 mt-0 bg-gray-100">
-                <div className='background-image h-[200px] grid grid-cols-2 '>
-                    <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Thay đổi mật khẩu</div>
-                </div>
+                <Title namePage={"Thay Đổi Mật Khẩu"}/>
                 
-                <div className='account-container mx-20'>
+                <div className='mx-auto md:flex md:p-5'>
                     <LeftNav name = {name}/>
                     
                     <ChangePassword 
@@ -68,7 +67,7 @@ function LeftNav({
     name
 }) {
     return (
-        <div className='account-left border-r border-solid border-gray-200'>
+        <div className='md:w-[20%] account-left border-r border-solid border-gray-200 w-full'>
             <div class="headline">
                 <div class="image">
                     <img src= {avatar} alt="avatar" />
@@ -110,14 +109,14 @@ function ChangePassword({
     handleButtonSubmitPressed,
 }){
     return(
-        <div className='account-right'>
+        <div className='account-right md:w-[80%] w-full'>
             <div class="headline">
                 <h3>Mật Khẩu</h3>
                 <p>Thay đổi mật khẩu của bạn</p>
             </div>
 
             <div class="container">
-                <form className="formInput">
+                <form className="formInput md:w-[70%] w-full">
                     <label>Nhập mật khẩu của bạn</label>
                     <input value={oldPassword} onChange={(e) => handleOldPasswordChanged(e)} placeholder="Add your password" type="password" />
 

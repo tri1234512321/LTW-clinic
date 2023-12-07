@@ -3,6 +3,7 @@ import {jwtClient} from "../../../utilities/JWTClient.js";
 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
 
 import React, { useState,useEffect } from "react";
 import avatar from "../../../assets/Infor/avatar.png";
@@ -30,11 +31,9 @@ export default function Account({
         <div>
             <Header tokenExpired={tokenExpired}/>
             <div className="pb-24 mt-0 bg-gray-100">
-                <div className='background-image h-[200px] grid grid-cols-2 '>
-                    <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Hồ sơ cá nhân</div>
-                </div>
+                <Title namePage={"Hồ Sơ Cá Nhân"}/>
                 
-                <div className='account-container mx-20'>
+                <div className='mx-auto md:flex sm:p-5'>
                     <LeftNav name= {name}/>
 
                     <UpdateInfor 
@@ -60,7 +59,7 @@ function LeftNav({
     name
 }) {
     return (
-        <div className='account-left border-r border-solid border-gray-200'>
+        <div className='account-left md:w-[20%]'>
             <div class="headline">
                 <div class="image">
                     <img src= {avatar} alt="avatar" />
@@ -100,14 +99,14 @@ function UpdateInfor({
     handleButtonSubmitPressed
 }){
     return (
-        <div className='account-right'>
+        <div className='account-right md:w-[80%] w-full'>
             <div class="headline">
                 <h3>Hồ Sơ Của Tôi</h3>
                 <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
             </div>
 
-            <div class="container">
-                <form className="formInput">
+            <div class="container md:flex">
+                <form className="formInput md:w-[70%]">
                     <table>
                         <tr>
                             <td class="td-left"><label>Tên </label></td>
@@ -135,7 +134,7 @@ function UpdateInfor({
                         </tr>
                     </table>
                 </form>
-                <div class="image-form">
+                <div class="image-form md:w-[30%]  md:border-l md:border-gray-200">
                     <div class="image">
                         <img src= {avatar} alt="avatar" />
                     </div>

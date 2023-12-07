@@ -143,9 +143,9 @@ export default function Login() {
                                         onChange={(e) => setpassword(e.target.value)}/>
                         </div>
                         <div class="flex justify-between w-full py-4">
-                            <div class="mr-24">
+                            <div class="md:mr-24">
                             <input type="checkbox" class="mr-2" value={asAdmin} onClick={(e)=>{setAsAdmin(!asAdmin)}}/>
-                            <span class="text-md">Đăng nhập với admin</span>
+                            <span class="text-md">Đăng nhập là admin</span>
                             </div>
                             <span class="font-bold text-md">Forgot password</span>
                         </div>

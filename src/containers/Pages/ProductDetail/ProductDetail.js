@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
+import Title from '../../../components/Title/Title.js';
+
 import { useParams } from "react-router-dom";
 
 export default function ProductDetail({
@@ -33,6 +35,7 @@ export default function ProductDetail({
 
         <div>
             <Header tokenExpired={tokenExpired}/>
+            <Title namePage={"Thông Tin Sản Phẩm"}/>
             <div className="my-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 px-20">
                     <div className="px-28">

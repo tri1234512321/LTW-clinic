@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
 
 import medicine from '../../../assets/New/medicine.jpg'
 import mengan from '../../../assets/New/men-gan.jpg'
@@ -18,8 +19,9 @@ export default function New({
     return (
         <div>
         <Header tokenExpired={tokenExpired}/>
+        <Title namePage={"Tin Tức Y Tế"}/>
             <div className="my-24 mx-20">
-            <div id="healthService" className="text-4xl font-bold border-b-2 border-primary mb-10">Tin tức y tế</div>
+            <div id="healthService" className="text-4xl font-bold border-b-2 border-primary mb-10">Tìm hiểu bệnh</div>
             <div className='grid grid-cols-1 sm:flex sm:w-fit sm:mx-auto pt-10'>
                 <div className='2xl:w-[900px] xl:grid xl:grid-cols-2 xl:gap-6 sm:w-9/12 w-full pb-20'>
                     <div className='border-solid border border-slate-200 h-fit rounded-md p-6 mb-6 hover:shadow-xl'>

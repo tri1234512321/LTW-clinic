@@ -7,6 +7,7 @@ import medicine from '../../../assets/About/medicine.png'
 
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
+import Title from '../../../components/Title/Title.js';
 
 export default function About({
     tokenExpired
@@ -14,10 +15,11 @@ export default function About({
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
-            <div className="mb-24 mt-10 mx-20">
-            <div className='mb-10 pt-5 text-5xl text-center flex m-auto justify-center'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Empalic</div></div>
-            <div className='grid grid-cols-1 sm:grid-cols-2 pt-10 pb-15'>
-                <div className='hidden sm:block pr-5 justify-self-end'>
+            <Title namePage={"Về Chúng Tôi"}/>
+            <div className="mb-24 mt-10 lg:mx-20 md:mx-5 mx-2">
+            <div className='mb-10 pt-5 text-5xl text-center sm:flex m-auto justify-center'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Empalic</div></div>
+            <div className='grid grid-cols-1 md:grid-cols-2 pt-10 pb-15'>
+                <div className='hidden md:block pr-5 justify-self-end'>
                     <img className='w-full max-h-[500px] object-cover' src={medicine} alt="" />
                 </div>
 
@@ -45,9 +47,9 @@ export default function About({
 
             <section className='my-24 py-10 bg-gray-100'>
                 <div className='flex justify-center text-5xl font-bold text-primary'>Dịch vụ chính</div>
-                <div className='px-32 mt-10 grid grid-cols-1 lg:grid-cols-3'>
+                <div className='xl:px-28 mt-10 grid grid-cols-1 lg:grid-cols-3'>
 
-                    <article class="overflow-hidden rounded-lg shadow-lg m-10">
+                    <article class="overflow-hidden rounded-lg shadow-lg sm:m-10 my-3">
                         <a href="#">
                             <img alt="..." class="block h-auto w-full" src="https://plus.unsplash.com/premium_photo-1681967103563-871828436e1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aG9zcGl0YWx8ZW58MHx8MHx8fDA%3D" />
                         </a>
@@ -63,7 +65,7 @@ export default function About({
                         </footer>
                     </article>
 
-                    <article class="overflow-hidden rounded-lg shadow-lg m-10">
+                    <article class="overflow-hidden rounded-lg shadow-lg sm:m-10 my-3">
                         <a href="#">
                             <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1463367620918-d4824d05ce0e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Ymxvb2QlMjBzdWdhcnxlbnwwfHwwfHx8MA%3D%3D" />
                         </a>
@@ -79,7 +81,8 @@ export default function About({
 
                         </footer>
                     </article>
-                    <article class="overflow-hidden rounded-lg shadow-lg m-10">
+
+                    <article class="overflow-hidden rounded-lg shadow-lg sm:m-10 my-3">
                         <a href="#">
                             <img alt="..." class="block h-auto w-full" src="https://plus.unsplash.com/premium_photo-1673958771843-12c73b278bd0?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bnVyc2V8ZW58MHx8MHx8fDA%3D" />
                         </a>
@@ -105,34 +108,36 @@ export default function About({
             </section>
 
             <div className='border-b-2 border-gray-450 pb-20'>
-                <div className="flex gap-20 w-fit mx-auto">
-                    <div>
+                <div className="md:flex gap-20 w-fit mx-auto">
+                    <div className='py-6'>
                         <img src={medicineIcon} alt="img" class="w-14 h-12 mb-5 mx-auto" />
                         <p className='text-xl'>Thuốc chính hãng 100%, chất lượng</p>
                     </div>
-                    <div>
+                    <div className='py-6'>
                         <img src={doctorIcon} alt="img" class="w-12 h-12 mb-5  mx-auto" />
                         <p className='text-xl'>Có bác sĩ chuyên môn tư vấn</p>
                     </div>
-                    <div>
+                    <div className='py-6'>
                         <img src={friendlyIcon} alt="img" class="w-12 h-12 mb-5  mx-auto" />
                         <p className='text-xl'>Nhân viên thân thiện nhiệt tình</p>
                     </div>
-                    <div>
+                    <div className='py-6'>
                         <img src={hospitalIcon} alt="img" class="w-12 h-12 mb-5  mx-auto" />
                         <p className='text-xl'>Hệ thống phòng khám rộng rãi</p>
                     </div>
                 </div>
             </div>
 
-            <div className='my-20 flex place-items-center gap-5 w-fit mx-auto'>
-                <p className='text-2xl font-semibold pr-10'>ĐĂNG KÍ NHẬN TIN</p>
-                <form className='w-96'>
-                    <input class="appearance-none border-2 rounded w-full h-12 py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text"/>
-                </form>
-                <button class="bg-red-500 hover:bg-blue-400 h-12 text-white font-bold py-2 px-4 rounded">
-                    ĐĂNG KÝ
-                </button>
+            <div className='my-20 lg:flex place-items-center gap-5 w-fit mx-auto'>
+                <p className='text-2xl font-semibold pr-10 my-3'>ĐĂNG KÍ NHẬN TIN</p>
+                <div className='sm:flex gap-5'>
+                    <form className='w-[280px] sm:w-[430px] my-3'>
+                        <input class="appearance-none border-2 rounded w-full h-12 py-2 px-3 text-gray-900 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text"/>
+                    </form>
+                    <button class="bg-red-500 hover:bg-blue-400 h-12 text-white font-bold py-2 px-4 rounded my-3">
+                        ĐĂNG KÝ
+                    </button>
+                </div>
 
             </div>
             </div>

@@ -68,10 +68,10 @@ export default function CartPage({
     return (
         <div>
             <Header tokenExpired={tokenExpired}/>
-            <div className='my-10 px-10 md:px-32 min-h-[64vh]'>
+            <div className='my-10 px-3 md:px-10 xl:px-32 min-h-[64vh]'>
                 <div className='border-b-2 border-primary text-3xl font-bold p-3'>Giỏ hàng của bạn</div>
 
-                <div className="mx-auto max-w-5xl my-5 justify-center px-6 md:flex md:space-x-6 xl:px-0">
+                <div className="mx-auto max-w-5xl my-5 justify-center sm:px-6 md:flex md:space-x-6 xl:px-0">
                     <div className="rounded-lg md:w-2/3">
                         {/* Map through cart items */}
                         {cartItems.map((cartItem, index) =>

@@ -79,7 +79,7 @@ export default function Header({
                     </ul>
                 </div>
 
-                <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
+                <div className="hidden sm:flex sm:flex-row items-center md:justify-end  md:basis-1/3">
                     <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
                         <a href="/cart" className="flex flex-row">
                             <HiMiniShoppingCart size={25} className="mr-3" />
@@ -146,6 +146,35 @@ export default function Header({
                                     Giỏ hàng
                                 </a>
                             </li>
+                            
+                            {
+                                tokenExpired === false?
+                                    <li className="my-2">
+                                        <a href="/account" className="text-black hover:text-primary">
+                                            Tài khoản
+                                        </a>
+                                    </li>
+                                :
+                                    <li className="my-2">
+                                        <a href="/login" className="text-black hover:text-primary">
+                                            Đăng nhập
+                                        </a>
+                                    </li>
+                            }
+                            {
+                                tokenExpired === false?
+                                    <li className="my-2">
+                                        <button className="text-black hover:text-primary" onClick={handleMenuLogout}>
+                                            Đăng xuất
+                                        </button>
+                                    </li>
+                                :
+                                    <li className="my-2">
+                                        <a href="/register" className="text-black hover:text-primary">
+                                            Đăng ký
+                                        </a>
+                                    </li>
+                            }
                         </ul>
                     </div>
                 )}

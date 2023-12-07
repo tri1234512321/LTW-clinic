@@ -63,8 +63,8 @@ export default function Home({
                 </div>
             </section>
 
-            <section className=' flex flex-col my-20 justify-center px-40'>
-                <div className='mt-5 text-5xl text-center flex m-auto flex-wrap'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Empalic</div></div>
+            <section className=' flex flex-col my-20 justify-center lg:px-40'>
+                <div className='mt-5 text-5xl text-center flex m-auto flex-wrap'>Chào mừng đến với<span className='text-primary text-center font-bold ml-3'>Empalic</span></div>
                 <br />
                 <div className='text-xl text-center'>Empalic chính là nơi bạn có thể nắm rõ tình hình sức khoẻ của mình ở hiện tại và trong tương lai, từ đó có các phương án quản lý và nâng cao sức khoẻ ngay từ khi còn khoẻ mạnh.</div>
                 <div className='flex justify-center'>
@@ -76,7 +76,7 @@ export default function Home({
 
             <section className='my-24 py-10 bg-gray-100'>
                 <div className='flex justify-center text-5xl font-bold text-primary'>Dịch vụ chính</div>
-                <div className='px-32 mt-10 grid grid-cols-1 lg:grid-cols-3'>
+                <div className='lg:px-32 mt-10 grid grid-cols-1 lg:grid-cols-3'>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
                         <a href="#">
@@ -137,7 +137,7 @@ export default function Home({
 
             <section className='my-24'>
                 <div className='flex justify-center text-5xl text-black'>Đội ngũ bác sĩ</div>
-                <div className='px-32 mt-10 grid grid-cols-2 lg:grid-cols-4'>
+                <div className='lg:px-32 mt-10 grid md:grid-cols-2 lg:grid-cols-4'>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
                         <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -216,7 +216,7 @@ export default function Home({
 
             <section className='my-24'>
                 <div className='flex justify-center text-5xl text-primary'>Thời gian hoạt động</div>
-                <div className='px-40 mt-10 grid grid-cols-1 md:grid-cols-2'>
+                <div className='md:px-40 px-3 mt-10 grid grid-cols-1 md:grid-cols-2'>
                     <div className='relative h-[30rem] md:h-auto col-span-2 md:col-span-1 my-10 md:my-0'>
                         <img src='https://demo037059.web30s.vn/datafiles/web30s/upload/images/7000-7100/30S-03-7059/1.jpg' className='rounded-lg w-[50%] absoluite left-0' />
                         <img src='https://demo037059.web30s.vn/datafiles/web30s/upload/images/7000-7100/30S-03-7059/2.jpg' className='rounded-lg w-[40%] absolute right-5 bottom-10' />
