@@ -141,11 +141,6 @@ export default function Header({
                                     Liên hệ
                                 </a>
                             </li>
-                            <li className="my-2">
-                                <a href="/cart" className="text-black hover:text-primary">
-                                    Giỏ hàng
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 )}
