@@ -43,7 +43,7 @@ function HeaderRow({
     headers
 }) {
     return (
-        <tr className="bg-gradient-to-t from-gray-400 to-gray-200">
+        <tr className="bg-gradient-to-t from-gray-400 to-gray-200 sticky top-0 z-50">
             {headers.map((header, index) => (
                 <th key={index} className="border px-4 py-2">
                     {header}
@@ -81,7 +81,7 @@ function DataInputRow({
     onInputChangedHandle
 }) {
     return (
-        <tr className="bg-gradient-to-t from-gray-300 to-gray-100">
+        <tr className="bg-gradient-to-t from-gray-300 to-gray-100 sticky top-10 z-50">
             {headers.map((key, index) => (
                 <td key={index} className="border px-4 py-2">
                     <DataInput name={key} value={rowData[key]}
@@ -144,7 +144,7 @@ function ActionBar({
     onExecuteButtonClickedHandle,
 }) {
     return (
-        <div className="mb-2 items-center w-full text-sm font-medium text-gray-900 bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-300 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div className="items-center w-full text-sm font-medium text-gray-900 bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-300 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <button
                 className="ms-4 px-4 py-2 mr-2 bg-slate-700 shadow-lg shadow-gray-400 text-white rounded-lg hover:bg-slate-400"
                 onClick={(e) => onExecuteButtonClickedHandle(e)}
@@ -222,7 +222,7 @@ export default function CrudTable({
                            e, action, dataInputs, urlPath, idName, setDataRows, setActionMessage)}
             />
 
-            <div className="overflow-auto h-1/3 max-h-[60vh]">
+            <div className="overflow-auto h-1/3 max-h-[70vh]">
                 <table className="table-auto w-auto border-collapse">
                     <thead>
                     <HeaderRow headers={headers} />

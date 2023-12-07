@@ -6,7 +6,7 @@ import Footer from "../../../components/Footer/Footer";
 import { BsSend } from "react-icons/bs";
 
 export default function Contact({
-    tokenExpired
+    tokenExpired,
 }) {
     return (
         <div>

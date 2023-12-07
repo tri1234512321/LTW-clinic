@@ -45,6 +45,7 @@ export default function App() {
 
   useEffect(() => {
     if (tokenExpired) {
+      console.log("TOKEN EXPIRED... REDIRECT TO LOGIN PAGE...");
       navigate("/login");
     }
   }, [tokenExpired]);
@@ -61,7 +62,7 @@ export default function App() {
         <Route path="account" element={<Account tokenExpired={tokenExpired}/>} />
         <Route path="password" element={<Password tokenExpired={tokenExpired}/>} />
         <Route path="order" element={<Order tokenExpired={tokenExpired}/>} />
-        <Route path="about" element={<About tokenExpired={tokenExpired}/>} />
+        <Route path="about" element={<About tokenExpired={tokenExpired}/>} />   {/* tokenExpired={true} because this page is not protected */}
         <Route path="product" element={<Product tokenExpired={tokenExpired}/>} />
         <Route path="home" element={<Home tokenExpired={tokenExpired}/>} />
         <Route path="contact" element={<Contact tokenExpired={tokenExpired}/>} />
