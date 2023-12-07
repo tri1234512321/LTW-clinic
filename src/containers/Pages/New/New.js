@@ -11,11 +11,13 @@ import canthi from '../../../assets/New/can-thi.jpg'
 
 import rightarrow from '../../../assets/New/right-arrow.png'
 
-export default function New() {
+export default function New({
+    tokenExpired
+}) {
     
     return (
         <div>
-        <Header />
+        <Header tokenExpired={tokenExpired}/>
             <div className="my-24 mx-20">
             <div id="healthService" className="text-4xl font-bold border-b-2 border-primary mb-10">Tin tức y tế</div>
             <div className='grid grid-cols-1 sm:flex sm:w-fit sm:mx-auto pt-10'>

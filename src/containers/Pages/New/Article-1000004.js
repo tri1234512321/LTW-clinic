@@ -11,11 +11,13 @@ import canthi from '../../../assets/New/can-thi.jpg'
 import rightarrow from '../../../assets/New/right-arrow.png'
 import CommentSection from './comment.js';
 
-export default function Article1000004() {
+export default function Article1000004({
+    tokenExpired
+}) {
     const articleId=1000004
     return (
         <div>
-        <Header />
+        <Header tokenExpired={tokenExpired}/>
             <div className="my-24 mx-20">
                 <div className='grid grid-cols-1 sm:flex sm:w-fit sm:mx-auto mt-10'>
                     <div className='2xl:w-[900px] xl:gap-6 sm:w-9/12 w-full pb-20'>

@@ -40,6 +40,14 @@ export default function AdminHeader({
 
 // handleLogoutButtonClicked
 async function handleLogoutButtonClicked() {
-    await jwtClient.logout();
-    jwtClient.fetch("/api/v1/common/auth/user-info");
+    await jwtClient.logout()
+    .catch(err=>{
+        console.log(err)
+    })
+
+    await jwtClient.fetch("/api/v1/common/auth/user-info")
+    .catch(err=>{
+        console.log(err)
+    })
 }
+

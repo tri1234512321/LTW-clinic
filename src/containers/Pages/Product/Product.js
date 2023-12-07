@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import { jwtClient } from '../../../utilities/JWTClient';
 import { useNavigate } from 'react-router-dom';
 
-export default function Products() {
+export default function Products({
+  tokenExpired
+}) {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
@@ -56,7 +58,7 @@ export default function Products() {
 
   return (
     <div>
-      <Header />
+      <Header tokenExpired={tokenExpired}/>
       <div className="my-24 mx-10 md:mx-10 lg:mx-24">
         <div className="grid grid-cols-1 md:grid-cols-4">
           <div className="">

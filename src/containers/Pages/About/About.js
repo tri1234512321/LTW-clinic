@@ -8,10 +8,12 @@ import medicine from '../../../assets/About/medicine.png'
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
-export default function About() {
+export default function About({
+    tokenExpired
+}) {
     return (
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className="mb-24 mt-10 mx-20">
             <div className='mb-10 pt-5 text-5xl text-center flex m-auto justify-center'>Chào mừng đến với<div className='text-primary font-bold ml-3'>Empalic</div></div>
             <div className='grid grid-cols-1 sm:grid-cols-2 pt-10 pb-15'>
