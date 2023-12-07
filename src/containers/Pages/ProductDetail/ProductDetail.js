@@ -36,7 +36,7 @@ export default function ProductDetail({
             <div className="my-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 px-20">
                     <div className="px-28">
-                        <img src={`http://localhost:8001/res/images/product/${product.id}.jpg`} alt={product.name} className="w-full h-auto" />
+                        <img src={`http://localhost:8001/api/v1/common/res/images/product/${product.id}.jpg`} alt={product.name} className="w-full h-auto" />
                     </div>
                     <div>
                         <div className="text-4xl font-bold">{product.name}</div>
