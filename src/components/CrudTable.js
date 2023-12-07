@@ -6,12 +6,16 @@ import {useNavigate} from "react-router-dom";
 function DataRow({
     rowData,
     headers,
+    rowIndex,
     onDataRowClickedHandle
 }) {
+    const isEvenRow = rowIndex % 2 === 1;
+    const rowBackgroundColor = isEvenRow ? "bg-gray-100" : "";
+
     return (
-        <tr onClick={(e) => onDataRowClickedHandle(e)} className="cursor-pointer hover:bg-gray-100">
+        <tr onClick={(e) => onDataRowClickedHandle(e)} className={`cursor-pointer ${rowBackgroundColor} hover:bg-gray-300`}>
             {headers.map((key, index) => (
-                <td key={index} className="border px-4 py-2">
+                <td key={index} className="border px-4 py-2 cursor-pointer hover:bg-gray-400">
                     {rowData[key]}
                 </td>
             ))}
@@ -25,10 +29,11 @@ function DataGrid({
     headers,
     onDataRowClickedHandle
 }) {
-    if (dataRows) {
+
+    if (Array.isArray(dataRows)) {
         return (
             dataRows.map((rowData, index) => (
-                <DataRow key={index} rowData={rowData} headers={headers} onDataRowClickedHandle={onDataRowClickedHandle} />
+                <DataRow key={index} rowIndex={index} rowData={rowData} headers={headers} onDataRowClickedHandle={onDataRowClickedHandle} />
             ))
         )
     }
@@ -38,7 +43,7 @@ function HeaderRow({
     headers
 }) {
     return (
-        <tr className="bg-gray-200">
+        <tr className="bg-gradient-to-t from-gray-400 to-gray-200">
             {headers.map((header, index) => (
                 <th key={index} className="border px-4 py-2">
                     {header}
@@ -58,11 +63,11 @@ function DataInput({
 }) {
     return (
         <input type="text"
+               className="w-full p-1 border rounded border-gray-400"
                value={value ?? ""}
                disabled={! editable}
                contentEditable={true}
                onChange={(e) => onInputChangedHandle(e, name)}
-               className="w-full p-2 border rounded mb-2"
         />
     )
 }
@@ -76,7 +81,7 @@ function DataInputRow({
     onInputChangedHandle
 }) {
     return (
-        <tr>
+        <tr className="bg-gradient-to-t from-gray-300 to-gray-100">
             {headers.map((key, index) => (
                 <td key={index} className="border px-4 py-2">
                     <DataInput name={key} value={rowData[key]}
@@ -99,6 +104,7 @@ function CrudRadioButton({
     return (
         <div className="flex items-center ps-3">
             <input
+                className="peer hidden"
                 id={action}
                 checked={isChecked}
                 onClick={(e) => onActionButtonClickedHandle(e)}
@@ -106,11 +112,10 @@ function CrudRadioButton({
                 type="radio"
                 value={action}
                 name="list-radio"
-                className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
             />
             <label
-                htmlFor="horizontal-list-radio-license"
-                className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                htmlFor={action}
+                className="block cursor-pointer select-none rounded-xl p-2 text-center peer-checked:bg-gray-500 peer-checked:font-bold peer-checked:text-white"
             >
                 {action.toUpperCase()}
             </label>
@@ -123,7 +128,7 @@ function AlertMessage({
 }) {
     return (
         <div className={`ms-3 p-2 text-sm`}>
-            <div className="bg-blue-500 text-white p-2 shadow-md">
+            <div className="bg-gradient-to-r from-gray-600 to-gray-400 text-white p-2 shadow-md">
                 {message}
             </div>
         </div>
@@ -139,9 +144,9 @@ function ActionBar({
     onExecuteButtonClickedHandle,
 }) {
     return (
-        <div className="mb-2 items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div className="mb-2 items-center w-full text-sm font-medium text-gray-900 bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-300 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
             <button
-                className="px-4 py-2 mr-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                className="ms-4 px-4 py-2 mr-2 bg-slate-700 shadow-lg shadow-gray-400 text-white rounded-lg hover:bg-slate-400"
                 onClick={(e) => onExecuteButtonClickedHandle(e)}
             >
                 Execute
@@ -191,6 +196,7 @@ export default function CrudTable({
         setAction("READ");
         setAllEditable(true);
         setExcludeFor([]);
+        setActionMessage(tableName)
         fetchData(urlPath + initQueryString, setDataRows);
     }, [tableName, initQueryString]);
 
@@ -216,7 +222,7 @@ export default function CrudTable({
                            e, action, dataInputs, urlPath, idName, setDataRows, setActionMessage)}
             />
 
-            <div className="overflow-scroll h-1/3 max-h-[60vh]">
+            <div className="overflow-auto h-1/3 max-h-[60vh]">
                 <table className="table-auto w-auto border-collapse">
                     <thead>
                     <HeaderRow headers={headers} />

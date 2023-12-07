@@ -1,11 +1,11 @@
-// Header.js
+// AdminHeader.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { jwtClient } from "../auth-api/JWTClient.js";
 import { HiUserCircle, HiLogout} from "react-icons/hi";
 
 
-export default function Header({
+export default function AdminHeader({
     greeting
 }) {
     return (
@@ -41,5 +41,5 @@ export default function Header({
 // handleLogoutButtonClicked
 async function handleLogoutButtonClicked() {
     await jwtClient.logout();
-    window.location.reload();
+    jwtClient.fetch("/api/v1/common/auth/user-info");
 }

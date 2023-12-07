@@ -14,9 +14,9 @@ function ControlBar ({
     return (
         <div className="flex justify-between items-center bg-gray-200">
             <div className="flex items-center">
-                <span className="text-clip bg-gray-300 p-2">CRUD Editor  </span>
+                <span className="text-clip p-2 shadow-lg shadow-blue-100 bg-gradient-to-r from-blue-400 to-blue-200">CRUD Editor  </span>
                 <span className="bg-gray-200 p-2">    </span>
-                <label className="mr-2">Select Table:</label>
+                <label className="mr-2 p-2 text-white shadow-lg shadow-blue-100 bg-gradient-to-r from-gray-600 to-gray-400">Select Table:</label>
                 <select
                     value={selectedTable}
                     onChange={handleTableChange}
@@ -57,14 +57,14 @@ function GoToBar({
     handleGoToButtonClicked
  }) {
     return (
-        <div className="flex items-center p-2">
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded"
+        <div className="mt-2 mb-2 items-center w-full text-sm font-medium text-gray-900 bg-gradient-to-r from-gray-200 to-gray-100 border border-gray-300 sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <button className="ms-4 px-6 py-2 mr-2 bg-slate-700 shadow-lg shadow-gray-400 text-white rounded-lg hover:bg-slate-400"
                     onClick={e => handleGoToButtonClicked(e)}
             >
                 Go To
             </button>
             <div className={`ms-3 p-2 text-sm`}>
-                <div className="bg-blue-500 text-white p-2 shadow-md">
+                <div className="bg-gradient-to-r from-gray-600 to-gray-400 text-white p-2 shadow-md">
                     {(goToBarTarget ?? "You are here!")}
                 </div>
             </div>
@@ -123,7 +123,7 @@ export default function CrudEditor ({
                     referenceData={referenceData ?? {}}
                     referenceHeaders={referenceHeaders ?? []}
                     handleGoToButtonClicked={e => handleGoToButtonClicked(
-                        e, referenceInfo, tables, selectedTable, setSelectedTable, setInitQueryString)}
+                        e, referenceInfo, tables, selectedTable, setSelectedTable, setInitQueryString, setTableInfoMessage)}
             />
             <CrudTable
                 tableName={selectedTable.name + " Table"}
@@ -137,7 +137,12 @@ export default function CrudEditor ({
     )
 }
 
-function handleGoToButtonClicked(e, referenceInfo, tables, selectedTable, setSelectedTable, setInitQueryString) {
+function handleGoToButtonClicked(e, referenceInfo, tables, selectedTable, setSelectedTable, setInitQueryString, setTableInfoMessage) {
+
+    if (referenceInfo === null || referenceInfo === undefined) {
+        return;
+    }
+
     let relations = selectedTable.relations;
     let relation;
     if (relations !== undefined && relations !== null) {
@@ -152,6 +157,7 @@ function handleGoToButtonClicked(e, referenceInfo, tables, selectedTable, setSel
         let relTable = tables.find(table => table.name === relation.tableName);
         let queryString = "?" + relTable.idName + "=" + referenceInfo.value;
         setSelectedTable(relTable);
+        setTableInfoMessage(extractTableInfo(relTable))
         setInitQueryString(queryString);
     }
 }
@@ -193,7 +199,7 @@ function doReferenceChangedEffect(tables, selectedTable, referenceInfo, setRefer
 
 function extractTableInfo(table) {
     const {name, idName, urlPath} = table;
-    return `${name} | idColumn: ${idName} | urlPath: ${urlPath}`;
+    return `${name} | idColumn: ${idName} | apiPath: ${urlPath}`;
 }
 
 function handleTableChange(e, tables, setSelectedTable, setTableInfo, setInitQueryString) {

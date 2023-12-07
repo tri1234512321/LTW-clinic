@@ -3,15 +3,21 @@ import React, {useEffect, useState} from 'react';
 import CrudEditor from "../components/CrudEditor";
 import {jwtClient} from "../auth-api/JWTClient";
 import {useNavigate} from "react-router-dom";
-import Header from "../components/Header";
+import AdminHeader from "../components/AdminHeader";
 
 
 export default function AdminPage({
 
 }) {
+
+    const [greeting, setGreeting] = useState("");
+
+    useEffect(() => {
+        fetchUserInfo(setGreeting);
+    }, []);
+
     const navigate = useNavigate();
     const [tokenExpired, setTokenExpired] = useState(false);
-    const [greeting, setGreeting] = useState("");
 
     useEffect(() => {
         if (tokenExpired) {
@@ -23,20 +29,9 @@ export default function AdminPage({
         jwtClient.setOnRefreshTokenFailedCallback(() => setTokenExpired(true));
     }, []);
 
-    useEffect(() => {
-        fetchUserInfo(setGreeting);
-    }, []);
-
-    useEffect(() => {
-        if (tokenExpired) {
-            navigate("/login");
-        }
-    }, [tokenExpired]);
-
-
     return (
         <div>
-            <Header greeting={greeting}/>
+            <AdminHeader greeting={greeting}/>
             <CrudEditor
                 tables={[
                     {

@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="651c79ee-456b-40a7-819f-ddc181efcb48" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CrudEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/CrudTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CrudTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/AdminPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/AdminPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +86,7 @@
       <workItem from="1701736840739" duration="4467000" />
       <workItem from="1701843810333" duration="15413000" />
       <workItem from="1701867070623" duration="24747000" />
+      <workItem from="1701935501237" duration="12690000" />
     </task>
     <servers />
   </component>
