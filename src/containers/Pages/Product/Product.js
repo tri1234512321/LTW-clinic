@@ -79,7 +79,7 @@ export default function Products() {
               {products.map(product => (
                 <article key={product.id} className="overflow-hidden rounded-lg shadow-lg m-10 col-span-1 md:col-span-1/3">
                   <Link to={`/detail/${product.id}`}>
-                    <img alt={product.name} className="block h-auto w-full" src={`http://localhost:8001/res/images/product/${product.id}.jpg`} />
+                    <img alt={product.name} className="block h-auto w-full" src={`http://localhost:8001/api/v1/common/res/images/product/${product.id}.jpg`} />
                   </Link>
 
                   <div className="flex flex-row p-2 md:p-4 my-5">
