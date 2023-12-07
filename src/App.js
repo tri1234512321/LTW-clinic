@@ -21,20 +21,21 @@ import Article1000003 from './containers/Pages/New/Article-1000003';
 import Article1000004 from './containers/Pages/New/Article-1000004';
 
 import ProductDetail from './containers/Pages/ProductDetail/ProductDetail';
-import AdminMember from './containers/Admin/Member';
+/*import AdminMember from './containers/Admin/Member';
 import AdminComment from './containers/Admin/Comment';
 import AdminContact from './containers/Admin/Contact';
 import AdminNews from './containers/Admin/News';
 import AdminProduct from './containers/Admin/Product';
 import AdminService from './containers/Admin/Service';
 import AdminInformation from './containers/Admin/Information';
-import AdminHome from './containers/Admin/Home';
+import AdminHome from './containers/Admin/Home';*/
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { faTwitter, faFontAwesome } from '@fortawesome/free-brands-svg-icons'
 
 import {jwtClient} from './utilities/JWTClient'
+import AdminPage from "./containers/Admin/AdminPage";
 
 library.add(fas, faTwitter, faFontAwesome)
 
@@ -73,14 +74,7 @@ export default function App() {
         <Route path="article/id=1000003" element={<Article1000003 tokenExpired={tokenExpired}/>} />
         <Route path="article/id=1000004" element={<Article1000004 tokenExpired={tokenExpired}/>} />
         <Route path="/detail/:id" element={<ProductDetail />} />
-        <Route path="/admin/member" element={<AdminMember />} />
-        <Route path="/admin/comment" element={<AdminComment />} />
-        <Route path="/admin/contact" element={<AdminContact />} />
-        <Route path="/admin/news" element={<AdminNews />} />
-        <Route path="/admin/product" element={<AdminProduct />} />
-        <Route path="/admin/service" element={<AdminService />} />
-        <Route path="/admin/information" element={<AdminInformation />} />
-        <Route path="/admin/Home" element={<AdminHome />} />
+        <Route path="/admin" element={<AdminPage />} />
       </Routes>
   );
 }

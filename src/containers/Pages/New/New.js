@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
-import medicine from '../../../assets/new/medicine.jpg'
-import mengan from '../../../assets/new/men-gan.jpg'
-import maumui from '../../../assets/new/mau-mui.jpg'
-import canthi from '../../../assets/new/can-thi.jpg'
+import medicine from '../../../assets/New/medicine.jpg'
+import mengan from '../../../assets/New/men-gan.jpg'
+import maumui from '../../../assets/New/mau-mui.jpg'
+import canthi from '../../../assets/New/can-thi.jpg'
 
-import rightarrow from '../../../assets/new/right-arrow.png'
+import rightarrow from '../../../assets/New/right-arrow.png'
 
 export default function New({
     tokenExpired

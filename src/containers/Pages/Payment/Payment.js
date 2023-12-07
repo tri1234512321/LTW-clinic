@@ -3,8 +3,9 @@ import Header from '../../../components/Header/Header'
 import Footer from '../../../components/Footer/Footer'
 import { useEffect, useState } from 'react';
 import { jwtClient } from '../../../utilities/JWTClient';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export default function Payment() {
+    const navigate = useNavigate();
     const [paymentInfo, setPaymentInfo] = useState([]);
     useEffect(() => {
         jwtClient.fetch(`/api/v1/business/payment`)
@@ -41,7 +42,7 @@ export default function Payment() {
                     </div>
                     <button
                         className="mt-4 mb-8 w-full rounded-md bg-primary px-6 py-3 font-medium text-white"
-                        onClick={(e) => handleOrderButton(e, note)}>
+                        onClick={(e) => handleOrderButton(e, note, navigate)}>
                         Đặt hàng
                     </button>
                 </div>
@@ -51,7 +52,7 @@ export default function Payment() {
     )
 }
 
-function handleOrderButton(e, note) {
+function handleOrderButton(e, note, navigate) {
     const requestData = {
         note: note
     };
@@ -62,8 +63,8 @@ function handleOrderButton(e, note) {
     })
         .then(response => response.json())
         .then(data => {
-            // Handle the response from the backend if needed
             console.log('Order placed successfully:', data);
+            navigate('/product');
         })
         .catch(error => {
             console.error('Error placing order:', error);

@@ -129,6 +129,9 @@ function handleIncreaseButtonClicked(e, cartItemId, setCartItems) {
                 fetchData(`/api/v1/business/cart`, setCartItems)
             }
         })
+        .catch(error => {
+            console.log(error)
+        });
 
 }
 
@@ -141,6 +144,9 @@ function handleDecreaseButtonClicked(e, cartItemId, setCartItems) {
                 fetchData(`/api/v1/business/cart`, setCartItems)
             }
         })
+        .catch(error => {
+            console.log(error)
+        });
 
 }
 
@@ -153,6 +159,9 @@ function handleDeleteButtonClicked(e, cartItemId, setCartItems) {
                 fetchData(`/api/v1/business/cart`, setCartItems)
             }
         })
+        .catch(error => {
+            console.log(error)
+        });
 
 
 }
@@ -166,4 +175,7 @@ function fetchData(urlPath, callback) {
         }
 
         )
+        .catch(error => {
+            console.log(error)
+        });
 }

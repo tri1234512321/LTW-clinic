@@ -3,7 +3,7 @@ import {jwtClient} from "../../../utilities/JWTClient.js";
 
 import {useNavigate} from 'react-router-dom'; 
 
-import member from '../../../assets/new/member.png'
+import member from '../../../assets/New/member.png'
 
 
 export default function CommentSection({
