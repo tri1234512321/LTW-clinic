@@ -15,7 +15,6 @@ import rightarrow from '../../../assets/New/right-arrow.png'
 export default function New({
     tokenExpired
 }) {
-    
     return (
         <div>
         <Header tokenExpired={tokenExpired}/>

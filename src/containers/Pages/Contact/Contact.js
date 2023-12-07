@@ -8,7 +8,7 @@ import Title from '../../../components/Title/Title.js';
 import { BsSend } from "react-icons/bs";
 
 export default function Contact({
-    tokenExpired
+    tokenExpired,
 }) {
     return (
         <div>

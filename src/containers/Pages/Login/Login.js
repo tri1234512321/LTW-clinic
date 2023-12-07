@@ -1,16 +1,60 @@
-import React,{useState} from 'react'
-import {Link,useNavigate} from 'react-router-dom'; 
+import React, {useEffect, useState} from 'react'
+import {Link,useNavigate} from 'react-router-dom';
 
 import loginImg from '../../../assets/login.jpg'
 import googleImg from '../../../assets/google.svg'
 
-import {jwtClient} from "../../../utilities/JWTClient";
+import {JWTClient, jwtClient, noRedirectJwtClient} from "../../../utilities/JWTClient";
+import {useHistory} from "react-router";
 
 export default function Login() {
     const navigate = useNavigate();
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
     const [asAdmin, setAsAdmin] = useState(false);
+
+    /*const history = useHistory();
+
+    useEffect(() => {
+        const unlisten = history.listen(() => {
+            window.location.reload();
+        });
+        return () => {
+            unlisten();
+        };
+    }, [history]);*/
+
+    //window.location.reload();
+    /*useEffect(() => {
+        async function checkIfLoggedIn() {
+            await jwtClient.fetch("/api/v1/common/auth/user-info")
+                .then(res => {
+                    if (res.status === 200) {
+                        navigate("/home");
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
+
+        checkIfLoggedIn();
+
+    }, []);*/
+
+    useEffect(() => {
+        async function checkLoginAndSetFetching() {
+            let shouldPull = await noRedirectJwtClient.fetch("/api/v1/common/auth/user-info")
+                .then(res => true)
+                .catch(err => {
+                    if (err !== JWTClient.REFRESH_TOKEN_FAILED) {
+                        navigate("/home");
+                    }
+                })
+        }
+        checkLoginAndSetFetching();
+    }, [])
+
 
     // const handleUserInput = (e) => {
     //     const name = e.target.name;
@@ -102,8 +146,8 @@ export default function Login() {
         //     console.log(error);
         //     }); 
         
-        await jwtClient.login(username, password)
-        .then(reponse=>{
+        /*await jwtClient.login(username, password);
+        await jwtClient.fetch(reponse=>{
             return jwtClient.fetch("/api/v1/common/auth/user-info")
         })
         .catch(err => {
@@ -114,7 +158,76 @@ export default function Login() {
             navigate("/admin")
         } else{
             navigate("/home");
-        }
+        }*/
+
+        /*jwtClient.fetch("/api/v1/common/auth/user-info")
+            .then(res => {
+                if(asAdmin){
+                    navigate("/admin")
+                } else{
+                    navigate("/home");
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                jwtClient.login(username, password)
+                    .then(success => {
+                        if (success) {
+                            if(asAdmin){
+                                navigate("/admin")
+                            } else{
+                                navigate("/home");
+                            }
+                        }{
+                            console.log("Login failed...")
+                            alert("Login failed...");
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            })*/
+
+        await jwtClient.login(username, password)
+            .then(success => {
+                if (success) {
+                    if(asAdmin){
+                        jwtClient.fetch("/api/v1/common/auth/user-info")
+                            .then(res => {
+                                if (res.status !== 200) {
+                                    console.log("Login failed...")
+                                    alert("Internal server errror, please contact us...");
+                                    return Promise.reject("Internal server error, please contact us...");
+                                }
+                                return res.json();
+                            })
+                            .then(data => {
+                                if (data.authority > 1) {
+                                    console.log("Login failed...")
+                                    alert("Not enough authority to access admin page...");
+                                    navigate("/home");
+                                }
+                                else {
+                                    navigate("/admin")
+                                }
+                            })
+                            .catch(err => {
+                                console.log(err)
+                            })
+                    } else {
+                        navigate("/home");
+                    }
+                }
+                else {
+                    console.log("Login failed...")
+                    alert("Incorrect username or password...");
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
         
     } 
         return (

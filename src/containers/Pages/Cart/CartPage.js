@@ -19,7 +19,7 @@ function CartItem({
     const totalPrice = (price * quantity).toFixed(2);
     return (
         <div className="justify-between mb-6 rounded-lg bg-gray-200 p-6 shadow-md sm:flex sm:justify-start">
-            <img src={`http://localhost:8001/res/images/product/${productId}.jpg`} className="w-full rounded-lg sm:w-40" alt={productName} />
+            <img src={`http://localhost:8001/api/v1/common/res/images/product/${productId}.jpg` } className="max-w-lg rounded-lg sm:w-40 max-h-20 " alt={productName} />
             <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                 <div className="mt-5 sm:mt-0">
                     <h2 className="text-lg font-bold text-gray-900">{productName}</h2>

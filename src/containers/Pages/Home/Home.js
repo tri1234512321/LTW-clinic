@@ -137,7 +137,7 @@ export default function Home({
 
             <section className='my-24'>
                 <div className='flex justify-center text-5xl text-black'>Đội ngũ bác sĩ</div>
-                <div className='lg:px-32 mt-10 grid md:grid-cols-2 lg:grid-cols-4'>
+                <div className='px-32 mt-10 grid grid-cols-1 md:grid-cols=2 lg:grid-cols-4'>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
                         <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
@@ -154,7 +154,7 @@ export default function Home({
                     </article>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
-                        <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+                        <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
                         <header className="flex  p-2 md:p-4 justify-center">
                             <h1 className="text-2xl text-primary font-bold">
@@ -168,7 +168,7 @@ export default function Home({
                     </article>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
-                        <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+                        <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
                         <header className="flex  p-2 md:p-4 justify-center">
                             <h1 className="text-2xl text-primary font-bold">
@@ -182,7 +182,7 @@ export default function Home({
                     </article>
 
                     <article class="overflow-hidden rounded-lg shadow-lg m-10">
-                        <img alt="..." class="block h-auto w-full" src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
+                        <img alt="..." class="block h-auto w-full" src="https://plus.unsplash.com/premium_photo-1681996484614-6afde0d53071?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" />
 
                         <header className="flex  p-2 md:p-4 justify-center">
                             <h1 className="text-2xl text-primary font-bold">

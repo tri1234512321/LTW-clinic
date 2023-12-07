@@ -30,29 +30,24 @@ export class JWTClient {
     }
 
     async login(username, password) {
-        let success = false;
 
         const url = this.#origin + this.#loginPath;
 
-        await fetch(url, {
+        let success = await fetch(url, {
             method: 'POST',
             credentials: 'include',
             headers: {
                 'Authorization': 'Basic ' + btoa(username + ":" + password)
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if (data.authorized) {
-                    success = true;
-                    this.#accessToken = data.accessToken;
+            .then(response => {
+                if (response.status === 200) {
+                    return true;
+                }
+                else {
+                    return false;
                 }
             })
-            .catch(err => {
-                console.log(err);
-            })
-            .finally();
 
         return success;
     }
@@ -178,6 +173,7 @@ export class JWTClient {
                     if (reason === JWTClient.REFRESH_TOKEN_FAILED) {
                         console.log("REFRESH ACCESS TOKEN FAILED...CALL CALLBACK FUNCTION...");
                         this.#onRefreshTokenFailedCallback();
+                        return Promise.reject(reason);
                     }
                     else {
                         console.log(reason);
@@ -285,5 +281,16 @@ export const jwtClient = new JWTClient(
     "/api/v1/common/auth/duration",
     () => {
         console.log("CALLBACK NAVIGATE TO LOGIN PAGE...");
+    }
+);
+
+export const noRedirectJwtClient = new JWTClient(
+    "http://localhost:8001",
+    "/api/v1/common/auth/login",
+    "/api/v1/common/auth/refresh",
+    "/api/v1/common/auth/logout",
+    "/api/v1/common/auth/duration",
+    () => {
+        console.log("Authorization failed but no callback...");
     }
 );
