@@ -10,6 +10,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [username, setusername] = useState("");
     const [password, setpassword] = useState("");
+    const [asAdmin, setAsAdmin] = useState(false);
 
     // const handleUserInput = (e) => {
     //     const name = e.target.name;
@@ -54,23 +55,23 @@ export default function Login() {
     
         e.preventDefault();
 
-        if (!await jwtClient.stillHasTokenAfter(7200)) { // if token is not valid after 7200 seconds, redirect to login page
-            // redirect to login page
-            // because this is example, we will login here
-            if (await jwtClient.login(username, password)) {
-                console.log("Login successful...");
-                console.log()
-                navigate("/home");
-            }
-            else {
-                console.log("Login failed...");
-            }
-            /***** BIG NOTE: In actually situation, redirect to login page. This is just example *****/
-        }
-        else {
-            console.log("Token is still valid... no need to login...");
-            navigate("/home");
-        }
+        // if (!await jwtClient.stillHasTokenAfter(7200)) { // if token is not valid after 7200 seconds, redirect to login page
+        //     // redirect to login page
+        //     // because this is example, we will login here
+        //     if (await jwtClient.login(username, password)) {
+        //         console.log("Login successful...");
+        //         console.log()
+        //         navigate("/home");
+        //     }
+        //     else {
+        //         console.log("Login failed...");
+        //     }
+        //     /***** BIG NOTE: In actually situation, redirect to login page. This is just example *****/
+        // }
+        // else {
+        //     console.log("Token is still valid... no need to login...");
+        //     navigate("/home");
+        // }
 
         // fetch("http://localhost:8001/dev/login", {
         //     method: "POST",
@@ -100,6 +101,21 @@ export default function Login() {
         //     console.log('not work');
         //     console.log(error);
         //     }); 
+        
+        await jwtClient.login(username, password)
+        .then(reponse=>{
+            return jwtClient.fetch("/api/v1/common/auth/user-info")
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+        if(asAdmin){
+            navigate("/admin")
+        } else{
+            navigate("/home");
+        }
+        
     } 
         return (
             <div className='grid grid-cols-1 sm:grid-cols-2 h-screen w-full'>
@@ -128,8 +144,8 @@ export default function Login() {
                         </div>
                         <div class="flex justify-between w-full py-4">
                             <div class="mr-24">
-                            <input type="checkbox" name="ch" id="ch" class="mr-2" />
-                            <span class="text-md">Remember for 30 days</span>
+                            <input type="checkbox" class="mr-2" value={asAdmin} onClick={(e)=>{setAsAdmin(!asAdmin)}}/>
+                            <span class="text-md">Đăng nhập với admin</span>
                             </div>
                             <span class="font-bold text-md">Forgot password</span>
                         </div>

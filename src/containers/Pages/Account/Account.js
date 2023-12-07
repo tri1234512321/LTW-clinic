@@ -13,7 +13,9 @@ import notification from "../../../assets/Infor/notification.png";
 
 import "./Account.scss";
 
-export default function Account() {
+export default function Account({
+    tokenExpired
+}) {
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -26,7 +28,7 @@ export default function Account() {
 
     return (
         <div>
-            <Header/>
+            <Header tokenExpired={tokenExpired}/>
             <div className="mb-24 mt-0">
                 <div className='background-image h-[200px] grid grid-cols-2 '>
                     <div id="healthService" className="text-5xl font-bold  mb-10 place-self-center pt-14">Hồ sơ cá nhân</div>
@@ -79,7 +81,7 @@ function LeftNav({
                 </div>
                 <div class="item">
                     <div class="icon"><img src={order} alt="order"/></div>
-                    <div class="it"><a href="account">Thông tin đơn hàng</a></div>
+                    <div class="it"><a href="./order">Thông tin đơn hàng</a></div>
                 </div>
                 <div class="item">
                     <div class="icon"><img src={notification} alt="notification"/></div>

@@ -44,7 +44,9 @@ function CartItem({
     )
 }
 
-export default function CartPage() {
+export default function CartPage({
+    tokenExpired
+}) {
     const [cartItems, setCartItems] = useState([]);
     const navigate = useNavigate();
     const handlePaymentButtonClick = () => {
@@ -65,7 +67,7 @@ export default function CartPage() {
 
     return (
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className='my-10 px-10 md:px-32 min-h-[64vh]'>
                 <div className='border-b-2 border-primary text-3xl font-bold p-3'>Giỏ hàng của bạn</div>
 

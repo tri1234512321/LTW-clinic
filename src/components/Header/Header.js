@@ -80,27 +80,19 @@ export default function Header({
                 </div>
 
                 <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
-                    <button className="flex flex-row text-primary mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
+                    <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
                         <a href="/cart" className="flex flex-row">
-                            <HiMiniShoppingCart size={30} className="mr-3" />
-                            Giỏ hàng
+                            <HiMiniShoppingCart size={25} className="mr-3" />
+                            <p className="pr-2">Giỏ hàng</p>
+                            <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center">
+                                <p className="text-xs text-white w-full h-full place-content-center">{"4"}</p>
+                            </div>
                         </a>
                     </button>
-                    {/* <button className="bg-teal-500 text-white rounded-3xl p-3 hidden md:block" 
-                        onClick={() => {
-                            if(logined===true){
-                                jwtClient.logout();
-                                setLogined(false);
-                            } else{
-                                navigate("/login");
-                            }
-                        }}>
-                        {logined===true ? "Đăng Xuất" : "Đăng Nhập"}
-                    </button> */}
                     {
                         tokenExpired === false
                             ?   <Dropdown
-                                    trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold">Tài khoản</button>}
+                                    trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold hover:text-yellow-400">Tài khoản</button>}
                                     menu={[
                                         <button className="p-1 self-start w-full text-blue-600 " onClick={handleMenuAccount}>Quản lý tài khoản</button>,
                                         <button className="p-1 self-start w-full text-blue-600" onClick={handleMenuLogout}>Đăng xuất</button>,
@@ -154,14 +146,6 @@ export default function Header({
                                     Giỏ hàng
                                 </a>
                             </li>
-                            <li className="my-2">
-                                <a href="/login" className="text-black hover:text-primary"
-                                    onClick={() => {
-                                        handleLogoutButtonClicked();
-                                    }}>
-                                    {tokenExpired===true ? "Đăng Xuất" : "Đăng Nhập"}
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 )}
@@ -201,6 +185,14 @@ const Dropdown = ({ trigger, menu }) => {
 };
 
 async function handleLogoutButtonClicked() {
-    await jwtClient.logout();
-    jwtClient.fetch("/api/v1/common/auth/user-info")
+    await jwtClient.logout()
+    .then(res=>{
+        jwtClient.fetch("/api/v1/common/auth/user-info")
+        .catch(err => {
+            console.log(err)
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
 }

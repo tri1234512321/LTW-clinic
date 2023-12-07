@@ -5,10 +5,12 @@ import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import { BsSend } from "react-icons/bs";
 
-export default function Contact() {
+export default function Contact({
+    tokenExpired
+}) {
     return (
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className="my-10  py-20 px-56">
                 <div className="text-5xl font-bold">Nếu bạn có bất kỳ câu hỏi nào, đừng ngần ngại liên hệ với chúng tôi</div>
 

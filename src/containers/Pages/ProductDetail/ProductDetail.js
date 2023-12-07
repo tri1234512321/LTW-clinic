@@ -3,7 +3,9 @@ import Header from "../../../components/Header/Header";
 import Footer from "../../../components/Footer/Footer";
 import { useParams } from "react-router-dom";
 
-export default function ProductDetail() {
+export default function ProductDetail({
+    tokenExpired
+}) {
     const [product, setProduct] = useState(null);
     const { id } = useParams();
     useEffect(() => {
@@ -30,7 +32,7 @@ export default function ProductDetail() {
     return (
 
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className="my-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 px-20">
                     <div className="px-28">

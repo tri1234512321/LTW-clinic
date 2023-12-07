@@ -2,10 +2,12 @@ import React from 'react';
 import Header from '../../../components/Header/Header';
 import Footer from '../../../components/Footer/Footer';
 
-export default function Service() {
+export default function Service({
+    tokenExpired
+}) {
     return (
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className="my-24 mx-20">
                 <div id="healthService" className="text-4xl font-bold border-b-2 border-primary mb-10">Dịch vụ sức khỏe</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 px-5 md:px-10">

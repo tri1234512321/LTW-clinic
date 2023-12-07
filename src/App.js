@@ -62,18 +62,18 @@ export default function App() {
         <Route path="password" element={<Password tokenExpired={tokenExpired}/>} />
         <Route path="order" element={<Order tokenExpired={tokenExpired}/>} />
         <Route path="about" element={<About tokenExpired={tokenExpired}/>} />
-        <Route path="product" element={<Product />} />
+        <Route path="product" element={<Product tokenExpired={tokenExpired}/>} />
         <Route path="home" element={<Home tokenExpired={tokenExpired}/>} />
-        <Route path="contact" element={<Contact />} />
-        <Route path="cart" element={<Cart />} />
-        <Route path="payment" element={<Payment />} />
-        <Route path="service" element={<Service />} />
+        <Route path="contact" element={<Contact tokenExpired={tokenExpired}/>} />
+        <Route path="cart" element={<Cart tokenExpired={tokenExpired}/>} />
+        <Route path="payment" element={<Payment tokenExpired={tokenExpired}/>} />
+        <Route path="service" element={<Service tokenExpired={tokenExpired}/>} />
         <Route path="new" element={<New tokenExpired={tokenExpired}/>} />
         <Route path="article/id=1000001" element={<Article tokenExpired={tokenExpired}/>} />
         <Route path="article/id=1000002" element={<Article1000002 tokenExpired={tokenExpired}/>} />
         <Route path="article/id=1000003" element={<Article1000003 tokenExpired={tokenExpired}/>} />
         <Route path="article/id=1000004" element={<Article1000004 tokenExpired={tokenExpired}/>} />
-        <Route path="/detail/:id" element={<ProductDetail />} />
+        <Route path="/detail/:id" element={<ProductDetail tokenExpired={tokenExpired}/>} />
         <Route path="/admin" element={<AdminPage />} />
       </Routes>
   );

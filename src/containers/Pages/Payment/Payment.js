@@ -4,7 +4,9 @@ import Footer from '../../../components/Footer/Footer'
 import { useEffect, useState } from 'react';
 import { jwtClient } from '../../../utilities/JWTClient';
 import { useNavigate } from 'react-router-dom';
-export default function Payment() {
+export default function Payment({
+    tokenExpired
+}) {
     const navigate = useNavigate();
     const [paymentInfo, setPaymentInfo] = useState([]);
     useEffect(() => {
@@ -22,7 +24,7 @@ export default function Payment() {
     const [note, setNote] = useState('');
     return (
         <div>
-            <Header />
+            <Header tokenExpired={tokenExpired}/>
             <div className=" sm:px-10  lg:px-60 xl:px-96 my-20">
 
                 <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
