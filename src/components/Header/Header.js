@@ -67,7 +67,7 @@ export default function Header({
         <header className="sticky top-0 w-full z-10 shadow-lg">
             <nav className="bg-white px-5 md:px-10 py-3 flex flex-row items-center md:max-h-[70px]">
                 <button
-                    className="text-primary mx-3 md:hidden"
+                    className="text-primary mx-3 lg:hidden"
                     onClick={toggleMenu}
                 >
                     <IoMdMenu size={30} />
@@ -77,7 +77,7 @@ export default function Header({
                     Empalic
                 </a>
 
-                <div className="md:flex-1 text-xl hidden md:flex justify-center md:basis-1/2">
+                <div className="md:flex-1 text-xl hidden lg:flex justify-center md:basis-1/2">
                     <ul className="flex flex-row">
                         <li className="mx-3 md:mx-5">
                             <a href="/home" className="text-black hover:text-primary">
@@ -112,7 +112,7 @@ export default function Header({
                     </ul>
                 </div>
 
-                <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
+                <div className="md:flex-1 md:flex flex-row items-center md:justify-end  md:basis-1/3 hidden">
                     <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
                         <a href="/cart" className="flex flex-row">
                             <HiMiniShoppingCart size={25} className="mr-3" />
@@ -152,7 +152,7 @@ export default function Header({
 
                 </div>
                 {isMenuOpen && (
-                    <div className="md:hidden absolute top-full left-0 bg-white w-full py-2">
+                    <div className="lg:hidden absolute top-full left-0 bg-white w-full py-2">
                         <ul className="flex flex-col items-center">
                             <li className="my-2">
                                 <a href="/home" className="text-black hover:text-primary">
@@ -189,6 +189,35 @@ export default function Header({
                                     Giỏ hàng
                                 </a>
                             </li>
+                            {
+                                isLoggedIn === true?   
+                                    <li className="my-2">
+                                        <a href="/account" className="text-black hover:text-primary">
+                                            Quản lý tài khoản
+                                        </a>
+                                    </li>
+                                :   
+                                    <li className="my-2">
+                                        <a href="/login" className="text-black hover:text-primary">
+                                            Đăng nhập
+                                        </a>
+                                    </li>
+                            }
+
+                            {
+                                isLoggedIn === true?   
+                                    <li className="my-2">
+                                        <button onClick={handleMenuLogout} className="text-black hover:text-primary">
+                                            Đăng xuất
+                                        </button>
+                                    </li>
+                                :   
+                                    <li className="my-2">
+                                        <a href="/register" className="text-black hover:text-primary">
+                                            Đăng ký
+                                        </a>
+                                    </li>
+                            }
                         </ul>
                     </div>
                 )}
