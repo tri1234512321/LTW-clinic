@@ -129,7 +129,7 @@ function OrderInfor({
 
     useEffect(() => {
         fetchData("/api/v1/content/orderitem?oderId="+orderId, setOrderItems)
-    }, [orderId]);
+    }, [/*orderId*/]);      // ===========================>>> changed
 
     let orderPrice = 0;
     for(let i=0;i<orderItems.length;i++) {
@@ -191,7 +191,7 @@ function OrderItemInfor({
 
     return(
         <div className="justify-between border-t border-solid border-gray-200 py-3 sm:flex sm:justify-start">
-            <img src={`http://localhost:8001/res/images/product/${productId}.jpg`} className="rounded-lg w-20 border-gray-200 border" alt={"alt"} />
+            <img src={`http://localhost:8001/api/v1/common/res/images/product/${productId}.jpg`} className="rounded-lg w-20 border-gray-200 border" alt={"alt"} />
             
             <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
                 <div className="mt-5 sm:mt-0">

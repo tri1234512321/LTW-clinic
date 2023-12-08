@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { IoMdMenu } from "react-icons/io";
 import {JWTClient, jwtClient, noRedirectJwtClient} from "../../utilities/JWTClient";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom'; 
 
 export default function Header({
-                                   tokenExpired
-                               }) {
+    tokenExpired
+}) {
     const navigate = useNavigate();
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [cartItemCount, setCartItemCount] = useState(0);
@@ -46,7 +46,7 @@ export default function Header({
     const handleMenuLogin = () => {
         navigate("/login");
     };
-
+    
     const handleMenuRegister = () => {
         navigate("/register");
     };
@@ -112,14 +112,19 @@ export default function Header({
                     </ul>
                 </div>
 
-                <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
+<<<<<<< HEAD
+                <div className="hidden sm:flex sm:flex-row items-center md:justify-end  md:basis-1/3">
                     <button className="flex flex-row text-primary w-[165px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex">
+=======
+                <div className="md:flex-1 flex flex-row items-center md:justify-end  md:basis-1/3">
+                    <button className="flex flex-row text-primary w-[145px] mx-3 md:mx-10 text-xl border-primary border-2 rounded-xl p-2 md:flex relative">
+>>>>>>> 6777f5eb4f21f5e3c930ce208006699eb3c68140
                         <a href="/cart" className="flex flex-row">
                             <HiMiniShoppingCart size={25} className="mr-3" />
                             <p className="pr-2">Giỏ hàng</p>
                             {
                                 cartItemCount !== null && cartItemCount !== undefined && cartItemCount > 0 ?
-                                    <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center">
+                                    <div className="rounded-full bg-red-500 h-[20px] w-[20px] item-center absolute left-[130px] bottom-8">
                                         <p className="text-xs text-white w-full h-full place-content-center">
                                             {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
                                         </p>
@@ -130,31 +135,32 @@ export default function Header({
                                     {cartItemCount !== null && cartItemCount !== undefined? cartItemCount : 0}
                                 </p>
                             </div>*/}
+
                         </a>
                     </button>
                     {
                         isLoggedIn === true
                             ?   <Dropdown
-                                trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold hover:text-yellow-400">Tài khoản</button>}
-                                menu={[
-                                    <button className="p-1 self-start w-full text-blue-600 " onClick={handleMenuAccount}>Quản lý tài khoản</button>,
-                                    <button className="p-1 self-start w-full text-blue-600" onClick={handleMenuLogout}>Đăng xuất</button>,
-                                ]}
-                            />
+                                    trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold hover:text-yellow-400">Tài khoản</button>}
+                                    menu={[
+                                        <button className="p-1 self-start w-full text-blue-600 " onClick={handleMenuAccount}>Quản lý tài khoản</button>,
+                                        <button className="p-1 self-start w-full text-blue-600" onClick={handleMenuLogout}>Đăng xuất</button>,
+                                    ]}
+                                />
                             :   <Dropdown
-                                trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold">Tài khoản</button>}
-                                menu={[
-                                    <button className="p-1 self-start w-full text-blue-600 " onClick={handleMenuLogin}>Đăng nhập</button>,
-                                    <button className="p-1 self-start w-full text-blue-600" onClick={handleMenuRegister}>Đăng ký</button>,
-                                ]}
-                            />
+                            trigger={<button className="border w-[110px] h-[45px] rounded-3xl bg-teal-500 text-white font-semibold">Tài khoản</button>}
+                            menu={[
+                                <button className="p-1 self-start w-full text-blue-600 " onClick={handleMenuLogin}>Đăng nhập</button>,
+                                <button className="p-1 self-start w-full text-blue-600" onClick={handleMenuRegister}>Đăng ký</button>,
+                            ]}
+                        />
                     }
-
+                    
                 </div>
                 {isMenuOpen && (
                     <div className="md:hidden absolute top-full left-0 bg-white w-full py-2">
                         <ul className="flex flex-col items-center">
-                            <li className="my-2">
+                                <li className="my-2">
                                 <a href="/home" className="text-black hover:text-primary">
                                     Trang chủ
                                 </a>
@@ -184,11 +190,43 @@ export default function Header({
                                     Liên hệ
                                 </a>
                             </li>
+<<<<<<< HEAD
                             <li className="my-2">
                                 <a href="/cart" className="text-black hover:text-primary">
                                     Giỏ hàng
                                 </a>
                             </li>
+                            
+                            {
+                                tokenExpired === false?
+                                    <li className="my-2">
+                                        <a href="/account" className="text-black hover:text-primary">
+                                            Tài khoản
+                                        </a>
+                                    </li>
+                                :
+                                    <li className="my-2">
+                                        <a href="/login" className="text-black hover:text-primary">
+                                            Đăng nhập
+                                        </a>
+                                    </li>
+                            }
+                            {
+                                tokenExpired === false?
+                                    <li className="my-2">
+                                        <button className="text-black hover:text-primary" onClick={handleMenuLogout}>
+                                            Đăng xuất
+                                        </button>
+                                    </li>
+                                :
+                                    <li className="my-2">
+                                        <a href="/register" className="text-black hover:text-primary">
+                                            Đăng ký
+                                        </a>
+                                    </li>
+                            }
+=======
+>>>>>>> 6777f5eb4f21f5e3c930ce208006699eb3c68140
                         </ul>
                     </div>
                 )}
@@ -199,42 +237,44 @@ export default function Header({
 
 const Dropdown = ({ trigger, menu }) => {
     const [open, setOpen] = React.useState(false);
-
+  
     const handleOpen = () => {
-        setOpen(!open);
+      setOpen(!open);
     };
-
+  
     return (
-        <div className="relative">
-            {React.cloneElement(trigger, {
-                onClick: handleOpen,
-            })}
-            {open ? (
-                <ul className="absolute my-2 border border-solid border-gray-300 w-[150px] rounded">
-                    {menu.map((menuItem, index) => (
-                        <li key={index} className="bg-sky-200 hover:bg-sky-300 font-semibold h-[40px]">
-                            {React.cloneElement(menuItem, {
-                                onClick: () => {
-                                    menuItem.props.onClick();
-                                    setOpen(false);
-                                },
-                            })}
-                        </li>
-                    ))}
-                </ul>
-            ) : null}
-        </div>
+      <div className="relative">
+        {React.cloneElement(trigger, {
+          onClick: handleOpen,
+        })}
+        {open ? (
+          <ul className="absolute my-2 border border-solid border-gray-300 w-[150px] rounded">
+            {menu.map((menuItem, index) => (
+              <li key={index} className="bg-sky-200 hover:bg-sky-300 font-semibold h-[40px]">
+                {React.cloneElement(menuItem, {
+                  onClick: () => {
+                    menuItem.props.onClick();
+                    setOpen(false);
+                  },
+                })}
+              </li>
+            ))}
+          </ul>
+        ) : null}
+      </div>
     );
 };
 
 async function handleLogoutButtonClicked(setIsLoggedIn) {
     await jwtClient.logout()
-    //setIsLoggedIn(false)      =========================> changed
+    setIsLoggedIn(false)
     jwtClient.fetch("/api/v1/common/auth/user-info")
         .catch(err => {
             if (err === JWTClient.REFRESH_TOKEN_FAILED) {
                 setIsLoggedIn(false)
             }
-            return err;
+        })
+        .catch(err => {
+            console.log(err)
         })
 }
